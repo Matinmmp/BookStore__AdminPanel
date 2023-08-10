@@ -11,12 +11,12 @@ type Inputs = {
 const index = () => {
 
 
-    const { register, handleSubmit, reset, formState: { errors }, control } = useForm<Inputs>({});
+    const { register, formState: { errors }, control } = useForm<Inputs>({});
     const [showPassword, setShowPassword] = useState(false)
 
-    const onSubmit: SubmitHandler<Inputs> = (data) => {
-        // reset();
-    }
+    // const onSubmit: SubmitHandler<Inputs> = (data) => {
+    //     reset();
+    // }
 
     return (
         <div data-theme='light' className="w-screen h-screen bg-base-content flex flex-row overflow-hidden">

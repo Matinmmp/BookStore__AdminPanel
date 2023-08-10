@@ -1,18 +1,22 @@
-import {Outlet} from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
+import Sidebar from '../components/MainLayout/Sidebar';
+import Header from '../components/MainLayout/Header';
+import { motion } from 'framer-motion';
 
 const MainLayout = () => {
     return (
-        <>
-            <header>
-                Header
-            </header>
+        <motion.div layout className='flex' >
+            <div>
+                <Sidebar />
+            </div>
+            <motion.div layout className='flex flex-col w-full' >
+                <Header />
+                <main>
+                    <Outlet />
+                </main>
 
-            <Outlet/>
-
-            <footer>
-                Footer
-            </footer>
-        </>
+            </motion.div>
+        </motion.div>
     )
 }
 

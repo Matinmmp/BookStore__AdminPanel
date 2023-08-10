@@ -3,10 +3,10 @@ export default {
     content: ['./src/**/*.{js,ts,jsx,tsx}'],
     plugins: [require("daisyui")],
     daisyui: {
-        themes: ["light", "night", "cupcake"],
+        themes: ["light", "dark", "cupcake"],
     },
     daisyui: {
         themes: true,
-        darkTheme: "night", 
+        darkTheme: "dark", 
       },
 }
