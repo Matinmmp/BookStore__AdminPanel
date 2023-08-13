@@ -82,7 +82,7 @@ const index = () => {
             </div>
 
             <div className="hidden lg:w-6/12 relative bg-sky-500 lg:flex items-center justify-center">
-                <img src="./images/security.svg" className="object-cover" alt="" />
+                <img src="../images/security.svg" className="object-cover" alt="" />
             </div>
         </div>
     )

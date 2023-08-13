@@ -11,33 +11,36 @@ const routes = createBrowserRouter(
     [
         {
             path: '/',
-            errorElement:<NotFound/>,
+            errorElement: <NotFound />,
             element: <MainLayout />,
             children: [
                 {
-                    path: '/',
+                    path: '/admin/',
                     element: <Order />,
                 },
                 {
-                    path:'/products',
-                    element:<Goods/>
+                    path: '/admin/products',
+                    element: <Goods />
                 },
                 {
-                    path:'/price',
-                    element:<Price/>
+                    path: '/admin/price',
+                    element: <Price />
                 },
             ]
         },
         {
-            path: '/login',
+            path: '/admin/login',
             element: <Login />
         },
-        // {
-        //     path:'*',
-        //     element:<NotFound/>
-        // }
+
     ]
 )
+
+
+
+
+
+
 
 
 export default routes;
