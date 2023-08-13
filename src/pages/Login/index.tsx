@@ -1,6 +1,8 @@
-import { useForm, SubmitHandler, Form } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { FaEyeSlash, FaEye } from 'react-icons/fa6';
 import { useState } from 'react';
+import publicAxios from "../../services/instance/publiceAxios";
+import Cookies from 'js-cookie';
 type Inputs = {
     username: string,
     password: string,
@@ -10,13 +12,22 @@ type Inputs = {
 
 const index = () => {
 
+    const { register, reset, formState: { errors }, handleSubmit } = useForm<Inputs>();
 
-    const { register, formState: { errors }, control } = useForm<Inputs>({});
     const [showPassword, setShowPassword] = useState(false)
 
-    // const onSubmit: SubmitHandler<Inputs> = (data) => {
-    //     reset();
-    // }
+    const onSubmit: SubmitHandler<Inputs> = (data) => {
+        const user = {
+            username: data.username,
+            password: data.password
+        }
+        publicAxios.post('/auth/login', user).then(res => {
+            Cookies.set('accessToken', res.data.token.accessToken)
+            Cookies.set('refreshToken', res.data.token.accessToken)
+            
+        })
+        reset();
+    }
 
     return (
         <div data-theme='light' className="w-screen h-screen bg-base-content flex flex-row overflow-hidden p-4 lg:p-0">
@@ -31,14 +42,7 @@ const index = () => {
                         <p className="mt-4">به فرم ورود مدیر خوش آمدید</p>
                     </div>
 
-                    <Form action="/sdafdsf" className="mt-8 flex flex-col gap-4 "
-                        onSuccess={() => {
-                            console.log('succeess')
-                        }}
-                        onError={() => {
-                            console.log('error')
-                        }}
-                        control={control}>
+                    <form onSubmit={handleSubmit(onSubmit)} className="mt-8 flex flex-col gap-4 " >
 
                         <div className="form-control w-full ">
                             <label className="label">نام کاربری</label>
@@ -76,9 +80,10 @@ const index = () => {
 
                         <button className="btn btn-md btn-accent mt-8 text-lg">ورود</button>
 
-                    </Form>
+                    </form>
 
                 </section>
+
             </div>
 
             <div className="hidden lg:w-6/12 relative bg-sky-500 lg:flex items-center justify-center">
