@@ -8,7 +8,7 @@ interface IContextProps {
     user?: User,
     getUser: (user: User) => void
 
-    theme?: string
+    theme: any;
     getTheme: (theme: string) => void
 }
 
@@ -19,15 +19,17 @@ type Props = {
 
 const MainContext = createContext({} as IContextProps);
 
-const MainProvider = (props: Props) => {
 
+const MainProvider = (props: Props) => {
+    const savedTheme = localStorage.getItem('theme') ? localStorage.getItem('theme'):'system';
+    
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [user, setUser] = useState<User>();
-    const [theme, setTheme] = useState<string>();
+    const [theme, setTheme] = useState(savedTheme);
 
     const getUser = (user: User) => setUser(user);
     const getTheme = (theme: string) => {
-        localStorage.setItem('theme',theme);
+        localStorage.setItem('theme', theme);
         setTheme(theme);
     }
     const handleIsMenuOpen = () => setIsMenuOpen(!isMenuOpen);

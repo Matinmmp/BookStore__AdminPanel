@@ -13,7 +13,7 @@ const Header = () => {
     const { handleIsMenuOpen } = useContext(MainContext);
     const { user,theme ,getTheme} = useContext(MainContext);
 
-    console.log(theme);
+    // console.log(theme);
     
     const navigate = useNavigate();
     const logout = () => {
