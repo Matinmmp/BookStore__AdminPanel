@@ -6,7 +6,7 @@ interface IContextProps {
 }
 
 type Props = {
-    children:JSX.Element
+    children:JSX.Element[]
 }
 
 
@@ -17,7 +17,7 @@ const MainProvider = (props:Props) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const handleIsMenuOpen = () => setIsMenuOpen(!isMenuOpen);
 
-    return <MainContext.Provider value={{ isMenuOpen, handleIsMenuOpen }} >{props.children}</MainContext.Provider>
+    return <MainContext.Provider value={{ isMenuOpen, handleIsMenuOpen }} >{...props.children}</MainContext.Provider>
 }
 
 

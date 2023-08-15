@@ -1,5 +1,6 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { FaEyeSlash, FaEye } from 'react-icons/fa6';
+import {useNavigate} from 'react-router-dom';
 import { useState } from 'react';
 import publicAxios from "../../services/instance/publiceAxios";
 import Cookies from 'js-cookie';
@@ -13,7 +14,7 @@ type Inputs = {
 const index = () => {
 
     const { register, reset, formState: { errors }, handleSubmit } = useForm<Inputs>();
-
+    const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false)
 
     const onSubmit: SubmitHandler<Inputs> = (data) => {
@@ -22,9 +23,9 @@ const index = () => {
             password: data.password
         }
         publicAxios.post('/auth/login', user).then(res => {
-            Cookies.set('accessToken', res.data.token.accessToken)
-            Cookies.set('refreshToken', res.data.token.accessToken)
-            
+            Cookies.set('accessToken', res.data.token.accessToken);
+            Cookies.set('refreshToken', res.data.token.accessToken);
+            navigate('/admin/')
         })
         reset();
     }
