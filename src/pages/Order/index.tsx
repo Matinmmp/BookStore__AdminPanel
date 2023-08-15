@@ -1,6 +1,4 @@
- 
-
-const index = () => {
+ const index = () => {
   return (
     <div>
         سفارشات

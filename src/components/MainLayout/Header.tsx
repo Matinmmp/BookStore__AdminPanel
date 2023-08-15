@@ -5,8 +5,7 @@ import { MainContext } from '../../context/Store';
 
 
 const Header = () => {
-    const { handleIsMenuOpen,isMenuOpen } = useContext(MainContext)
-    console.log(isMenuOpen);
+    const { handleIsMenuOpen } = useContext(MainContext)
     
     return (
         <motion.section layout

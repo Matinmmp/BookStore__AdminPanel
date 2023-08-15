@@ -1,37 +1,52 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../Layout/MainLayout";
 import Login from '../pages/Login/index';
-import Goods from '../pages/Goods/index';
+import Products from '../pages/Products/index';
 import Order from '../pages/Order/index';
 import Price from '../pages/Price/index';
+import NotFound from "../pages/NotFound/index";
+import PrivateRoute from "../components/routes/privateRoutes";
+import ProtectedRoute from "../components/routes/protectedRoute";
 
 
 const routes = createBrowserRouter(
     [
         {
             path: '/',
-            element: <MainLayout />,
+            errorElement: <NotFound />,
+            element: <PrivateRoute><MainLayout /></PrivateRoute>,
             children: [
                 {
-                    path: '/',
-                    element: <Goods />,
+                    path: '/admin/',
+                    element: <div>hi</div>
                 },
                 {
-                    path:'/order',
-                    element:<Order/>
+                    path: '/admin/products',
+                    element: <Products />,
                 },
                 {
-                    path:'/price',
-                    element:<Price/>
+                    path: '/admin/price',
+                    element: <Price />
+                },
+                {
+                    path: '/admin/orders',
+                    element: <Order />
                 },
             ]
         },
         {
-            path: '/login',
-            element: <Login />
-        }
+            path: '/admin/login',
+            element: <ProtectedRoute><Login /></ProtectedRoute>
+        },
+
     ]
 )
+
+
+
+
+
+
 
 
 export default routes;
