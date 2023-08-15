@@ -10,7 +10,6 @@ const PrivateRoute = ({ children }: IProps) => {
     const accessToken = Cookies.get("accessToken")
     const location = useLocation().pathname;
 
-
     return accessToken ? children : <Navigate to={'/admin/login'} state={{ from: location }} replace />
 }
 
