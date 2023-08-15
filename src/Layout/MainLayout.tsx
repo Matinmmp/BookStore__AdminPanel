@@ -3,9 +3,12 @@ import Sidebar from '../components/MainLayout/Sidebar';
 import Header from '../components/MainLayout/Header';
 import { motion } from 'framer-motion';
 
-const MainLayout = () => {
+type IProps={
+    theme:string
+}
+const MainLayout = ({theme}:IProps) => {
     return (
-        <motion.div layout className='flex' >
+        <motion.div layout className='flex' data-theme={theme}>
             <div>
                 <Sidebar />
             </div>

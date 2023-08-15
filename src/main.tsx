@@ -8,6 +8,7 @@ import { MainProvider } from './context/Store.tsx'
 
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
+    
     <MainProvider>
         <App />
         <ToastContainer/>

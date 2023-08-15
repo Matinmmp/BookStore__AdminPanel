@@ -14,7 +14,6 @@ import { MainContext } from "../../context/Store";
 const Sidebar = () => {
     const [mini, setMini] = useState(false);
     const { isMenuOpen, handleIsMenuOpen } = useContext(MainContext);
-    console.log(isMenuOpen);
 
     return (
         <motion.aside

@@ -5,6 +5,7 @@ import './App.css';
 
 
 function App() {
+    console.log("sdfadsf");
     return (
             <RouterProvider router={routes} />
     )

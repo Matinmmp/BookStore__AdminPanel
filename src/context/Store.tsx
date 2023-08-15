@@ -1,23 +1,38 @@
 import { createContext, useState } from 'react';
+import { Theme, User } from '../models/Types';
 
 interface IContextProps {
     isMenuOpen: boolean,
     handleIsMenuOpen: () => void
+
+    user?: User,
+    getUser: (user: User) => void
+
+    theme?: string
+    getTheme: (theme: string) => void
 }
 
 type Props = {
-    children:JSX.Element[]
+    children: JSX.Element[]
 }
 
 
 const MainContext = createContext({} as IContextProps);
 
-const MainProvider = (props:Props) => {
+const MainProvider = (props: Props) => {
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [user, setUser] = useState<User>();
+    const [theme, setTheme] = useState<string>();
+
+    const getUser = (user: User) => setUser(user);
+    const getTheme = (theme: string) => {
+        localStorage.setItem('theme',theme);
+        setTheme(theme);
+    }
     const handleIsMenuOpen = () => setIsMenuOpen(!isMenuOpen);
 
-    return <MainContext.Provider value={{ isMenuOpen, handleIsMenuOpen }} >{...props.children}</MainContext.Provider>
+    return <MainContext.Provider value={{ isMenuOpen, handleIsMenuOpen, user, getUser, theme, getTheme }} >{...props.children}</MainContext.Provider>
 }
 
 

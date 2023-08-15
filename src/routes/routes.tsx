@@ -8,13 +8,13 @@ import NotFound from "../pages/NotFound/index";
 import PrivateRoute from "../components/routes/privateRoutes";
 import ProtectedRoute from "../components/routes/protectedRoute";
 
-
+const savedTheme = localStorage.getItem('theme');  console.log(savedTheme);
 const routes = createBrowserRouter(
     [
         {
             path: '/',
             errorElement: <NotFound />,
-            element: <PrivateRoute><MainLayout /></PrivateRoute>,
+            element: <PrivateRoute><MainLayout theme='light'/></PrivateRoute>,
             children: [
                 {
                     path: '/admin/',
