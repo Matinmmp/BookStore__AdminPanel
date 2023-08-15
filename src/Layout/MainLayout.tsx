@@ -2,10 +2,14 @@ import { Outlet } from 'react-router-dom';
 import Sidebar from '../components/MainLayout/Sidebar';
 import Header from '../components/MainLayout/Header';
 import { motion } from 'framer-motion';
+import { MainContext } from '../context/Store';
+import { useContext } from 'react';
+
 
 const MainLayout = () => {
+    const { theme } = useContext(MainContext);
     return (
-        <motion.div layout className='flex' >
+        <motion.div layout className='flex' data-theme={theme}>
             <div>
                 <Sidebar />
             </div>

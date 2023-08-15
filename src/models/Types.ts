@@ -1,4 +1,5 @@
 export type User = {
+    _id:string
     firstname: string,
     lastname: string,
     username: string,
@@ -13,3 +14,11 @@ export enum AdminRoles {
     ADMIN,
     USER
 }
+
+
+export enum Theme{
+    System,
+    Dark,
+    Light
+}
+

@@ -8,7 +8,6 @@ import NotFound from "../pages/NotFound/index";
 import PrivateRoute from "../components/routes/privateRoutes";
 import ProtectedRoute from "../components/routes/protectedRoute";
 
-
 const routes = createBrowserRouter(
     [
         {
