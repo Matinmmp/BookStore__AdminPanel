@@ -11,7 +11,7 @@ const MainLayout = () => {
             </div>
             <motion.div layout className='flex flex-col w-full' >
                 <Header />
-                <main>
+                <main className='p-4'>
                     <Outlet />
                 </main>
 

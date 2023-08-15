@@ -4,34 +4,43 @@ import Login from '../pages/Login/index';
 import Goods from '../pages/Goods/index';
 import Order from '../pages/Order/index';
 import Price from '../pages/Price/index';
+import NotFound from "../pages/NotFound/index";
 
 
 const routes = createBrowserRouter(
     [
         {
             path: '/',
+            errorElement: <NotFound />,
             element: <MainLayout />,
             children: [
                 {
-                    path: '/',
-                    element: <Goods />,
+                    path: '/admin/',
+                    element: <Order />,
                 },
                 {
-                    path:'/order',
-                    element:<Order/>
+                    path: '/admin/products',
+                    element: <Goods />
                 },
                 {
-                    path:'/price',
-                    element:<Price/>
+                    path: '/admin/price',
+                    element: <Price />
                 },
             ]
         },
         {
-            path: '/login',
+            path: '/admin/login',
             element: <Login />
-        }
+        },
+
     ]
 )
+
+
+
+
+
+
 
 
 export default routes;
