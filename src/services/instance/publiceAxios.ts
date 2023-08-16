@@ -7,7 +7,6 @@ const publicAxios = axios.create({
     baseURL: BASE_URL
 });
 
-const notify = () => toast("Wow so easy!");
 
 publicAxios.interceptors.request.use(config => config, error => Promise.reject(error));
 

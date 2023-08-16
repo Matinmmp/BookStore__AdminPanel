@@ -21,7 +21,7 @@ const Sidebar = () => {
             layout
             animate={{ width: isMenuOpen ? '0' : 'auto' }}
             transition={{ ease: "easeInOut", duration: .4 }}
-            className='bg-info-content overflow-hidden h-screen absolute top-0 right-0 bottom-0 lg:relative'>
+            className='bg-info-content overflow-hidden h-screen absolute top-0 right-0 bottom-0 lg:relative z-50'>
 
             <motion.div
                 initial={false}
