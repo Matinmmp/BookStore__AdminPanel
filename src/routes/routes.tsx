@@ -7,6 +7,8 @@ import Price from '../pages/Price/index';
 import NotFound from "../pages/NotFound/index";
 import PrivateRoute from "../components/routes/privateRoutes";
 import ProtectedRoute from "../components/routes/protectedRoute";
+import Category from "../pages/Category/index";
+
 
 const routes = createBrowserRouter(
     [
@@ -30,6 +32,10 @@ const routes = createBrowserRouter(
                 {
                     path: '/admin/orders',
                     element: <Order />
+                },
+                {
+                    path: '/admin/categories',
+                    element: <Category />
                 },
             ]
         },

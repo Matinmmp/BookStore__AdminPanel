@@ -4,21 +4,21 @@ import { useContext, useState, ChangeEvent } from 'react';
 import { MainContext } from '../../context/Store';
 import { RiLogoutBoxLine } from 'react-icons/ri';
 import Cookies from 'js-cookie';
+import { logOut } from '../../services/api/user';
 import { useNavigate } from 'react-router-dom';
 
 
 
 const Header = () => {
-    // const [theme, setTheme] = useState<string>();
     const { handleIsMenuOpen } = useContext(MainContext);
-    const { user,theme ,getTheme} = useContext(MainContext);
+    const { user, theme, getTheme } = useContext(MainContext);
 
-    // console.log(theme);
-    
+
     const navigate = useNavigate();
     const logout = () => {
-        Cookies.remove('accessToken');
-        Cookies.remove('refreshToken');
+        // Cookies.remove('accessToken');
+        // Cookies.remove('refreshToken');
+        logOut();
         navigate('/admin/login');
     }
 
@@ -30,12 +30,14 @@ const Header = () => {
         <motion.section layout
             className=" p-2 bg-info-content">
             <div className='flex items-center justify-between'>
-                <span onClick={() => handleIsMenuOpen()}><GiHamburgerMenu className='cursor-pointer text-2xl text-white' /></span>
-                <select className='px-2 py-1 cursor-pointer rounded-md' onChange={handleTheme} value={theme}>
-                    <option value="system" className='p-2'>سیستم</option>
-                    <option value="dark" className='p-2'>تاریک</option>
-                    <option value="light" className='p-2'>روشن</option>
-                </select>
+                <div className='flex items-center gap-4'>
+                    <span onClick={() => handleIsMenuOpen()}><GiHamburgerMenu className='cursor-pointer text-2xl text-white' /></span>
+                    <select className='px-2 py-1 cursor-pointer rounded-md bg-accent text-white' onChange={handleTheme} value={theme}>
+                        <option value="system" className='p-2'>سیستم</option>
+                        <option value="dark" className='p-2'>تاریک</option>
+                        <option value="light" className='p-2'>روشن</option>
+                    </select>
+                </div>
                 <div>
                     <i className='cursor-pointer text-2xl hover:text-accent text-white' onClick={logout}><RiLogoutBoxLine /></i>
                 </div>
