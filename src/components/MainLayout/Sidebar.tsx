@@ -30,7 +30,7 @@ const Sidebar = () => {
 
                 <div className="flex flex-col px-2">
 
-                    <div className="py-2 flex justify-between">
+                    <div className="py-2 flex justify-between text-white">
                         <i className=' cursor-pointer text-2xl lg:hidden ' onClick={() => handleIsMenuOpen()}>
                             <AiOutlineClose />
                         </i>
