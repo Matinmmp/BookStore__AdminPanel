@@ -1,5 +1,5 @@
 export type User = {
-    _id:string
+    _id: string
     firstname: string,
     lastname: string,
     username: string,
@@ -10,13 +10,20 @@ export type User = {
     refreshToken: string,
 }
 
+export type Category = {
+    _id: string,
+    name: string
+    slugname: string
+    icon: string
+}
+
 export enum AdminRoles {
     ADMIN,
     USER
 }
 
 
-export enum Theme{
+export enum Theme {
     System,
     Dark,
     Light
