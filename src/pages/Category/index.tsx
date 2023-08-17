@@ -1,4 +1,5 @@
 import Table from "../../components/Category/Table"
+import {BiPlusCircle} from 'react-icons/bi'
 
 const index = () => {
     return (
@@ -7,7 +8,7 @@ const index = () => {
                 <div>
                     <input type='text' placeholder='جست و جو' className="input input-accent"/>
                 </div>
-                <button className="btn btn-accent">اضافه کردن</button>
+                <button className="btn btn-accent flex items-center gap-2">اضافه کردن <BiPlusCircle className="text-xl"/></button>
             </div>
             <Table />
         </div>

@@ -1,5 +1,5 @@
 import { createContext, useState } from 'react';
-import { Theme, User } from '../models/Types';
+import { User } from '../models/Types';
 
 interface IContextProps {
     isMenuOpen: boolean,
