@@ -21,15 +21,13 @@ const Sidebar = () => {
             layout
             animate={{ width: isMenuOpen ? '0' : 'auto' }}
             transition={{ ease: "easeInOut", duration: .4 }}
-            className='bg-info-content overflow-hidden h-screen absolute top-0 right-0 bottom-0 lg:relative z-50'>
+            className='bg-info-content overflow-hidden h-screen fixed top-0 right-0 bottom-0 lg:relative z-50'>
 
             <motion.div
                 initial={false}
                 layout
                 animate={{ width: mini ? '6rem' : '15rem' }}>
-
                 <div className="flex flex-col px-2">
-
                     <div className="py-2 flex justify-between text-white">
                         <i className=' cursor-pointer text-2xl lg:hidden ' onClick={() => handleIsMenuOpen()}>
                             <AiOutlineClose />
@@ -106,12 +104,19 @@ const Sidebar = () => {
                                         {mini ? '' : <motion.span layout> زیر دسته بندی </motion.span>}
                                     </div>
                                 </NavLink>
+
+                                <NavLink to="/admin/stopwatch" className={({ isActive }) => isActive ? "bg-accent p-2 rounded-md" : "p-2"}>
+                                    <div className="flex items-center ps-3 gap-4">
+                                        <motion.i layout animate={{ fontSize: mini ? '2rem' : '1rem' }} initial={false}>
+                                            <VscTypeHierarchySub />
+                                        </motion.i>
+                                        {mini ? '' : <motion.span layout> تایمر </motion.span>}
+                                    </div>
+                                </NavLink>
                             </div>
                         </div>
                     </div>
-
                 </div>
-
             </motion.div>
         </motion.aside>
 

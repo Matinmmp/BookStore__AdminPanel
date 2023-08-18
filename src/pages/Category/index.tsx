@@ -1,6 +1,7 @@
 import Table from "../../components/Category/Table"
 import {BiPlusCircle} from 'react-icons/bi'
 
+
 const index = () => {
     return (
         <div className="felx flex-row gap-8 px-8">

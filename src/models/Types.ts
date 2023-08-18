@@ -10,6 +10,26 @@ export type User = {
     refreshToken: string,
 }
 
+export type Product = {
+    _id:string,
+    category: String,
+    subcategory: String,
+    name: String,
+    slugname: String,
+    price: number
+    quantity: number
+    brand: String,
+    description: String,
+    thumbnail: String,
+    images: String,
+    rating: Rating,
+}
+
+type Rating={
+    rate:Number,
+    count:Number,
+}
+
 export type Category = {
     _id: string,
     name: string
