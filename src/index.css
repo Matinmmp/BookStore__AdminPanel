@@ -1,7 +1,13 @@
+@font-face {
+    font-family: "Vazir";
+    src: url("../public/font/Vazir-Medium.ttf") format("truetype");
+}
+
 body,*{
     direction: rtl;
 }
 
 body{
     position: relative;
+    font-family: 'Vazir';
 }

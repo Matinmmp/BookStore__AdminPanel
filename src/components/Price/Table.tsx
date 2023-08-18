@@ -11,8 +11,8 @@ type IProps = {
 
 const Table = ({products}:IProps) => {
     return (
-        <div className="relative  shadow-md sm:rounded-lg overflow-y-auto">
-            <motion.table layout className="w-full text-left shadow-md min-w-[50rem]" >
+        <div className="relative  shadow-md sm:rounded-lg overflow-auto">
+            <motion.table layout className="w-full text-left shadow-md min-w-[45rem]" >
                 <motion.thead layout className=" text-white flex bg-accent  text-[.9rem]">
                     <motion.tr className="flex w-full justify-around text-center">
                         <th scope="col" className="px-6 py-3 w-6/12">

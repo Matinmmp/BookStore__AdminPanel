@@ -11,7 +11,7 @@ export type User = {
 }
 
 export type Product = {
-    _id:string,
+    _id: string,
     category: String,
     subcategory: String,
     name: String,
@@ -25,9 +25,19 @@ export type Product = {
     rating: Rating,
 }
 
-type Rating={
-    rate:Number,
-    count:Number,
+type Rating = {
+    rate: Number,
+    count: Number,
+}
+export type Order = {
+    _id: string
+    user: string
+    products: { products: Product[], count: number },
+    totalPrice: number
+    deliveryDate: Date
+    deliveryStatus: boolean
+    createdAt: Date
+    updatedAt: Date
 }
 
 export type Category = {

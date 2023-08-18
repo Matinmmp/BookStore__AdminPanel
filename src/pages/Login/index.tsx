@@ -27,7 +27,7 @@ const index = () => {
             Cookies.set('accessToken', res.data.token.accessToken);
             Cookies.set('refreshToken', res.data.token.accessToken);
             getUser(res.data.data.user);
-            navigate('/admin/');
+            navigate('/admin/home');
         })
         reset();
     }
