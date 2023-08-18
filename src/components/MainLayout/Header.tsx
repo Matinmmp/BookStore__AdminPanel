@@ -42,7 +42,7 @@ const Header = () => {
             <div className='flex items-center justify-between'>
                 <div className='flex items-center gap-4'>
                     <span onClick={() => handleIsMenuOpen()}><GiHamburgerMenu className='cursor-pointer text-2xl text-white' /></span>
-                    <select className='px-2 py-1 cursor-pointer rounded-md bg-accent text-white' onChange={handleTheme} >
+                    <select className='px-2 py-1 cursor-pointer rounded-md bg-accent text-white' onChange={handleTheme} value={String(theme)}>
                         <option value="system" className='p-2'>سیستم</option>
                         <option value="dark" className='p-2'>تاریک</option>
                         <option value="light" className='p-2'>روشن</option>
