@@ -19,9 +19,6 @@ const Table = () => {
                 <motion.table layout className="w-full text-left shadow-md " >
                     <motion.thead layout className=" text-white flex bg-accent  text-[.9rem]">
                         <motion.tr className="flex w-full justify-around text-center">
-                            <th scope="col" className="px-6 py-3 ">
-                                ردیف
-                            </th>
                             <th scope="col" className="px-6 py-3">
                                 آیکون
                             </th>
@@ -35,7 +32,7 @@ const Table = () => {
                     </motion.thead>
 
                     <motion.tbody className="text-center max-h-[60vh] flex flex-col overflow-y-auto w-full">
-                        {categories.length > 0 ? categories.map((item, id) => <Row key={item._id} category={item} id={id} />) : null}
+                        {categories.length > 0 ? categories.map((item, id) => <Row key={item._id} category={item}  />) : null}
                      
 
                     </motion.tbody>

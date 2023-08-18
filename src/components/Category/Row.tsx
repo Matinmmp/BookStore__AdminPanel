@@ -4,16 +4,12 @@ import { AiOutlineDelete } from 'react-icons/ai';
 
 interface IProps {
     category: Category;
-    id: number
 }
-const Row = ({ category, id }: IProps) => {
+const Row = ({ category}: IProps) => {
     console.log(category);
 
     return (
         <tr className= "bg-white border-b flex justify-around items-center dark:bg-gray-800 dark:border-gray-700 hover:bg-accent-focus w-full text-white">
-            <th className="px-6 py-4 font-medium whitespace-nowrap dark:text-white">
-                {id}
-            </th>
             <td className="px-6 py-4">
                 <div className="flex items-center justify-center space-x-3">
                     <div className="avatar">
