@@ -6,7 +6,6 @@ interface IProps {
     category: Category;
 }
 const Row = ({ category}: IProps) => {
-    console.log(category);
 
     return (
         <tr className= "bg-white border-b flex justify-around items-center dark:bg-gray-800 dark:border-gray-700 hover:bg-accent-focus w-full text-white">
