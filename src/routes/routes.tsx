@@ -8,7 +8,6 @@ import NotFound from "../pages/NotFound/index";
 import PrivateRoute from "../components/routes/privateRoutes";
 import ProtectedRoute from "../components/routes/protectedRoute";
 import Category from "../pages/Category/index";
-import StopWatch from '../pages/Stop Watch/index';
 
 const routes = createBrowserRouter(
     [
@@ -36,10 +35,6 @@ const routes = createBrowserRouter(
                 {
                     path: '/admin/categories',
                     element: <Category />
-                },
-                {
-                    path: '/admin/stopwatch',
-                    element: <StopWatch />
                 },
             ]
         },
