@@ -29,7 +29,7 @@ const index = () => {
 
     return (
         <div className="felx flex-row gap-8 px-8 ">
-            <div className="flex flex-col lg:flex-row gap-4 justify-between py-8">
+            <div className="flex flex-col items-center lg:flex-row gap-4 justify-between py-8">
                 <div className="order-2  ">
                     <input type='text' placeholder='جست و جو' className="input input-accent w-full" />
                 </div>
