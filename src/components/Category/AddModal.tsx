@@ -3,6 +3,7 @@ import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { BsPlusCircleDotted } from 'react-icons/bs';
 import { useRef, useState, ChangeEvent } from 'react';
 import { postCategory } from '../../services/api/category';
+import { useQueryClient } from 'react-query';
 
 interface IProps {
     closeModal: () => void
@@ -15,17 +16,22 @@ type Inputs = {
 
 const AddModal = ({ closeModal }: IProps) => {
 
-    const { register, reset, formState: { errors }, handleSubmit, } = useForm<Inputs>();
+    const { register, formState: { errors }, handleSubmit, } = useForm<Inputs>();
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [imageURL, setImageURL] = useState<File>();
+
+    const queryClient = useQueryClient();
+    queryClient.invalidateQueries({
+        queryKey: ['categories']
+    })
 
     const onSubmit: SubmitHandler<Inputs> = (data) => {
         const formData = new FormData();
         formData.append('name', data.name);
         formData.append('icon', imageURL);
-
         postCategory(formData);
-
+        
+        closeModal()
     }
     const openFileInput = () => {
         fileInputRef.current?.click();
@@ -38,7 +44,7 @@ const AddModal = ({ closeModal }: IProps) => {
 
     return (
         <div className="flex flex-col gap-4 min-w-[20rem] min-h-[15rem]" >
-            <div><AiOutlineCloseCircle className="text-error text-3xl cursor-pointer" onClick={() => { closeModal(), reset() }} /></div>
+            <div><AiOutlineCloseCircle className="text-error text-3xl cursor-pointer" onClick={() => { closeModal() }} /></div>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className='flex flex-col gap-4 py-4'>
                     <div className="form-control w-full relative pb-6">
