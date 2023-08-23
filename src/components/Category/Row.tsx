@@ -8,7 +8,7 @@ interface IProps {
 const Row = ({ category}: IProps) => {
 
     return (
-        <tr className= "bg-white border-b flex justify-around items-center hover:bg-accent-focus transition-all w-full ">
+        <tr className= " flex justify-around items-center hover:bg-accent-focus transition-all w-full ">
             <td className="px-6 py-4">
                 <div className="flex items-center justify-center space-x-3">
                     <div className="avatar">
@@ -18,7 +18,7 @@ const Row = ({ category}: IProps) => {
                     </div>
                 </div>
             </td>
-            <td className="px-6 py-4">
+            <td className="px-6 py-4  text-black dark:text-white">
                 {category.name}
             </td>
 

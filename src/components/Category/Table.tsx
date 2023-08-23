@@ -22,7 +22,6 @@ const Table = () => {
 
     if (data)
         return (
-            <div className="">
                 <div className="relative overflow-auto shadow-md sm:rounded-lg">
                     <motion.table layout className="w-full text-left shadow-md " >
                         <motion.thead layout className=" text-white flex bg-accent  text-[.9rem]">
@@ -45,10 +44,6 @@ const Table = () => {
 
                     </motion.table>
                 </div>
-
-            </div>
-
-
         )
 }
 
