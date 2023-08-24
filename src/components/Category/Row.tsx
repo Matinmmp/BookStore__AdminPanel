@@ -35,3 +35,4 @@ const Row = ({ category}: IProps) => {
 }
 
 export default Row
+
