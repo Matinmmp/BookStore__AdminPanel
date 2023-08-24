@@ -9,7 +9,7 @@ interface IProps {
     searchText: string
 }
 
-const Table = ({ searchText }: IProps) => {
+const Table = () => {
     let { data, status } = useQuery({ queryKey: ['categories'], queryFn: getAllCategories })
 
     if (status === 'pending') {
