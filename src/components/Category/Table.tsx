@@ -1,6 +1,6 @@
 
-import { useQueryClient, useMutation, useQuery } from "@tanstack/react-query";
-import { getAllCategories, postCategory } from "../../services/api/category"
+import {  useQuery } from "@tanstack/react-query";
+import { getAllCategories } from "../../services/api/category"
 import Row from './Row';
 import { motion } from 'framer-motion';
 
