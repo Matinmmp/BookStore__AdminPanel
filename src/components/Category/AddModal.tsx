@@ -3,7 +3,7 @@ import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { BsPlusCircleDotted } from 'react-icons/bs';
 import { useRef, useState, ChangeEvent } from 'react';
 import { postCategory } from '../../services/api/category';
-import { useQueryClient } from 'react-query';
+import { useQueryClient, useMutation, useQuery } from "@tanstack/react-query";
 
 interface IProps {
     closeModal: () => void
@@ -18,19 +18,14 @@ const AddModal = ({ closeModal }: IProps) => {
 
     const { register, formState: { errors }, handleSubmit, } = useForm<Inputs>();
     const fileInputRef = useRef<HTMLInputElement>(null);
-    const [imageURL, setImageURL] = useState<File>();
+    const [imageURL, setImageURL] = useState<any>();
 
-    const queryClient = useQueryClient();
-    queryClient.invalidateQueries({
-        queryKey: ['categories']
-    })
+    const formData = new FormData();
 
     const onSubmit: SubmitHandler<Inputs> = (data) => {
-        const formData = new FormData();
         formData.append('name', data.name);
         formData.append('icon', imageURL);
-        postCategory(formData);
-        
+        mutation.mutate(formData)
         closeModal()
     }
     const openFileInput = () => {
@@ -42,6 +37,15 @@ const AddModal = ({ closeModal }: IProps) => {
             setImageURL(fileInputRef.current.files[0]);
     }
 
+    const queryClient = useQueryClient()
+    const mutation = useMutation({
+        mutationFn: postCategory,
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['categories'] })
+        },
+    })
+
+    
     return (
         <div className="flex flex-col gap-4 min-w-[20rem] min-h-[15rem]" >
             <div><AiOutlineCloseCircle className="text-error text-3xl cursor-pointer" onClick={() => { closeModal() }} /></div>
