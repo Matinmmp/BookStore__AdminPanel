@@ -104,15 +104,6 @@ const Sidebar = () => {
                                         {mini ? '' : <motion.span layout> زیر دسته بندی </motion.span>}
                                     </div>
                                 </NavLink>
-
-                                <NavLink to="/admin/stopwatch" className={({ isActive }) => isActive ? "bg-accent p-2 rounded-md" : "p-2"}>
-                                    <div className="flex items-center ps-3 gap-4">
-                                        <motion.i layout animate={{ fontSize: mini ? '2rem' : '1rem' }} initial={false}>
-                                            <VscTypeHierarchySub />
-                                        </motion.i>
-                                        {mini ? '' : <motion.span layout> تایمر </motion.span>}
-                                    </div>
-                                </NavLink>
                             </div>
                         </div>
                     </div>

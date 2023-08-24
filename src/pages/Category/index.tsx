@@ -23,21 +23,20 @@ const index = () => {
 
     return (
         <div className="felx flex-row gap-8 px-8">
-            <div className="flex justify-between py-8">
-                <div>
-                    <input type='text' placeholder='جست و جو' className="input input-accent" />
+            <div className="flex flex-col lg:flex-row gap-4 justify-between py-8">
+                <div className="order-2  ">
+                    <input type='text' placeholder='جست و جو' className="input input-accent w-full" />
                 </div>
-                <button className="btn btn-accent flex items-center gap-2 text-white" onClick={openAddCategoryModal}
-                >اضافه کردن <BiPlusCircle className="text-xl" /></button>
-                {modalElement &&
-                    isAddCategoryOpen &&
-                    createPortal(
-                        <ModalContainer>
-                            <AddModal closeModal={closeAddCategoryModal} />
-                        </ModalContainer>
-                        , modalElement)}
+                <button className="btn btn-accent flex items-center gap-2 order-1 lg:order-2">اضافه کردن <BiPlusCircle className="text-xl" /></button>
             </div>
             <Table />
+            {modalElement &&
+                isAddCategoryOpen &&
+                createPortal(
+                    <ModalContainer>
+                        <AddModal closeModal={closeAddCategoryModal} />
+                    </ModalContainer>
+                    , modalElement)}
         </div>
     )
 }
