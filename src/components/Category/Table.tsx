@@ -5,17 +5,24 @@ import Row from './Row';
 import { motion } from 'framer-motion';
 import { useQuery } from "react-query";
 
-const Table = () => {
+interface IProps {
+    searchText: string
+}
 
-    const { status, data } = useQuery('categories', getAllCategories, {
+const Table = ({ searchText }: IProps) => {
+
+    let { status, data } = useQuery('categories', getAllCategories, {
         refetchOnWindowFocus: false,
         refetchOnMount: true,
     });
-    const queryClient = useQueryClient();
-    queryClient.invalidateQueries({
-        queryKey: ['categories']
-    })
-    
+    if (searchText)
+        data = data?.filter(item => item.name.includes(searchText));
+
+    // const queryClient = useQueryClient();
+    // queryClient.invalidateQueries({
+    //     queryKey: ['categories']
+    // })
+
     if (status === 'loading') {
         return <div>Loading ....</div>
     }
