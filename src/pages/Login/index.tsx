@@ -10,8 +10,6 @@ type Inputs = {
     password: string,
     rememberme: boolean
 }
-
-
 const index = () => {
 
     const { register, reset, formState: { errors }, handleSubmit } = useForm<Inputs>();

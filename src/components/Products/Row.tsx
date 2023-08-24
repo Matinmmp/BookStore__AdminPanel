@@ -10,7 +10,6 @@ const Row = ({ product }: IProps) => {
 
     return (
         <tr className= " flex items-center hover:bg-accent-focus w-full ">
-
             <td className="px-6 py-4 w-1/12">
                 <div className="flex items-center justify-center space-x-3">
                     <div className="avatar">

@@ -6,10 +6,9 @@ interface IProps {
     category: Category;
 }
 const Row = ({ category}: IProps) => {
-    console.log(category);
 
     return (
-        <tr className= "bg-white border-b flex justify-around items-center hover:bg-accent-focus transition-all w-full ">
+        <tr className= " flex justify-around items-center hover:bg-accent-focus hover:text-white transition-all w-full">
             <td className="px-6 py-4">
                 <div className="flex items-center justify-center space-x-3">
                     <div className="avatar">
@@ -19,7 +18,7 @@ const Row = ({ category}: IProps) => {
                     </div>
                 </div>
             </td>
-            <td className="px-6 py-4">
+            <td className="px-6 py-4 ">
                 {category.name}
             </td>
 
@@ -36,3 +35,4 @@ const Row = ({ category}: IProps) => {
 }
 
 export default Row
+

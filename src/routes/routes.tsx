@@ -9,6 +9,7 @@ import PrivateRoute from "../components/routes/privateRoutes";
 import ProtectedRoute from "../components/routes/protectedRoute";
 import Category from "../pages/Category/index";
 
+
 const routes = createBrowserRouter(
     [
         {
