@@ -4,6 +4,9 @@ import { HiMiniPencilSquare } from 'react-icons/hi2';
 import { useQuery } from "@tanstack/react-query";
 import { getCategory } from "../../services/api/category";
 import { createPortal } from "react-dom";
+import { useState } from "react";
+import ModalContainer from "../Modal/ModalContainer";
+import DeleteModal from "./DeleteModal";
 
 interface IProps {
     product: Product;
@@ -11,6 +14,12 @@ interface IProps {
 const Row = ({ product }: IProps) => {
 
     let { data, isLoading } = useQuery({ queryKey: ['category'], queryFn: () => getCategory(product.category) })
+
+
+    const [isDeleteProductModalOpen, setIsDeleteProductModalOpen] = useState(false);
+    const modalElement = document.getElementById('modal');
+    const openDeleteProductModal = () => setIsDeleteProductModalOpen(() => true);
+    const closeDeleteProductModal = () => setIsDeleteProductModalOpen(() => false);
 
     return (
         <tr className=" flex justify-around items-center hover:bg-accent-focus hover:text-white transition-all w-full">
@@ -36,9 +45,18 @@ const Row = ({ product }: IProps) => {
             <td className=" text-right w-3/12 ">
                 <div className="flex gap-2 justify-center items-center text-white">
                     <button className="btn btn-error text-xl text-white"> <HiMiniPencilSquare /></button>
-                    <button className="btn btn-warning text-xl text-white"> <AiFillDelete /></button>
+                    <button className="btn btn-warning text-xl text-white"
+                        onClick={openDeleteProductModal}
+                    > <AiFillDelete /></button>
                 </div>
             </td>
+            {modalElement &&
+                isDeleteProductModalOpen &&
+                createPortal(
+                    <ModalContainer>
+                        <DeleteModal closeModal={closeDeleteProductModal} name={product.name } id={product._id} />
+                    </ModalContainer>
+                    , modalElement)}
         </tr>
 
     )

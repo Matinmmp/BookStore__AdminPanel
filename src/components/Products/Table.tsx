@@ -1,8 +1,7 @@
-import { Category, Product } from "../../models/Types";
+import { Product } from "../../models/Types";
 import Row from './Row';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { getAllProducts } from "../../services/api/product";
 
 
 type IProps = {
