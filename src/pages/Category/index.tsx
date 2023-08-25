@@ -6,13 +6,13 @@ import { useState, ChangeEvent } from 'react';
 import AddModal from "../../components/Category/AddModal";
 
 const index = () => {
-    const [isAddCategoryOpen, setIsAddCategoryOpen] = useState(false);
+    const [isAddCategoryModalOpen, setIsAddCategoryModalOpen] = useState(false);
     const [searchInput,setSearchInput] = useState('');
     
     const modalElement = document.getElementById('modal');
 
-    const openAddCategoryModal = () => setIsAddCategoryOpen(() => true);
-    const closeAddCategoryModal = () => setIsAddCategoryOpen(() => false);
+    const openAddCategoryModal = () => setIsAddCategoryModalOpen(() => true);
+    const closeAddCategoryModal = () => setIsAddCategoryModalOpen(() => false);
     const searchInputHandler=(e:ChangeEvent<HTMLInputElement>)=> setSearchInput(e.target.value);
 
     return (
@@ -26,9 +26,9 @@ const index = () => {
                     onClick={openAddCategoryModal}
                 >اضافه کردن <BiPlusCircle className="text-xl" /></button>
             </div>
-            <Table searchText={searchInput}/>
+            <Table/>
             {modalElement &&
-                isAddCategoryOpen &&
+                isAddCategoryModalOpen &&
                 createPortal(
                     <ModalContainer>
                         <AddModal closeModal={closeAddCategoryModal} />

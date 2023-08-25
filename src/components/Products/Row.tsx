@@ -1,15 +1,20 @@
-import { Category, Product } from "../../models/Types";
-import { BiEditAlt } from 'react-icons/bi';
-import { AiOutlineDelete } from 'react-icons/ai';
+import { Product } from "../../models/Types";
+import { AiFillDelete } from 'react-icons/ai';
+import { HiMiniPencilSquare } from 'react-icons/hi2';
+import { useQuery } from "@tanstack/react-query";
+import { getCategory } from "../../services/api/category";
+import { createPortal } from "react-dom";
 
 interface IProps {
     product: Product;
 }
 const Row = ({ product }: IProps) => {
 
+    let { data, isLoading } = useQuery({ queryKey: ['category'], queryFn: () => getCategory(product.category) })
 
     return (
-        <tr className= " flex items-center hover:bg-accent-focus w-full ">
+        <tr className=" flex justify-around items-center hover:bg-accent-focus hover:text-white transition-all w-full">
+
             <td className="px-6 py-4 w-1/12">
                 <div className="flex items-center justify-center space-x-3">
                     <div className="avatar">
@@ -25,18 +30,17 @@ const Row = ({ product }: IProps) => {
             </td>
 
             <td className="px-6 py-4 w-5/12">
-               دسته بندی
+                {isLoading ? <div>loadin</div> : data?.name}
             </td>
 
-            <td className=" text-right w-3/12">
-                <div className="flex gap-2 justify-center ">
-                    <button className="btn btn-error ">حذف <AiOutlineDelete /></button>
-                    <button className="btn btn-warning">ویرایش <BiEditAlt /></button>
+            <td className=" text-right w-3/12 ">
+                <div className="flex gap-2 justify-center items-center text-white">
+                    <button className="btn btn-error text-xl text-white"> <HiMiniPencilSquare /></button>
+                    <button className="btn btn-warning text-xl text-white"> <AiFillDelete /></button>
                 </div>
             </td>
-
         </tr>
-      
+
     )
 
 }
