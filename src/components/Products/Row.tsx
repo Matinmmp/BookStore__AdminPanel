@@ -13,8 +13,9 @@ interface IProps {
 }
 const Row = ({ product }: IProps) => {
 
-    let { data, isLoading } = useQuery({ queryKey: ['category'], queryFn: () => getCategory(product.category) })
-
+    let { data, isLoading } = useQuery({ queryKey: [`${product._id}`], queryFn: () => getCategory(product.category) },)
+    
+    
 
     const [isDeleteProductModalOpen, setIsDeleteProductModalOpen] = useState(false);
     const modalElement = document.getElementById('modal');

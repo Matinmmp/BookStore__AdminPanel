@@ -24,8 +24,10 @@ privateAxios.interceptors.response.use(res => res, async error => {
     if (error.response) {
         // should be 401
         if (error.response?.status === 500 && !originalConfig._retry) {
+            console.log("error1");
             originalConfig._retry = true;
             try {
+                console.log("error2");
                 const currentRefreshToken = Cookies.get("refreshToken")
                 const res = await refreshToken(currentRefreshToken)
                 const accessToken = res.token.accessToken
