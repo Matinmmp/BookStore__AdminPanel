@@ -5,6 +5,7 @@ import { useState, useContext } from 'react';
 import publicAxios from "../../services/instance/publiceAxios";
 import Cookies from 'js-cookie';
 import { MainContext } from "../../context/Store";
+import { refreshToken } from './../../services/api/refresh';
 type Inputs = {
     username: string,
     password: string,
@@ -23,7 +24,7 @@ const index = () => {
         }
         publicAxios.post('/auth/login', user).then(res => {
             Cookies.set('accessToken', res.data.token.accessToken);
-            Cookies.set('refreshToken', res.data.token.accessToken);
+            Cookies.set('refreshToken', res.data.token.refreshToken);
             getUser(res.data.data.user);
             navigate('/admin/');
         })

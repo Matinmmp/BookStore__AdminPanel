@@ -13,9 +13,6 @@ const AddModal = ({ closeModal }: IProps) => {
             <div className='flex overflow-hidden' >
                 <div className='w-7/12 bg-blue-800 overflow-x-scroll' style={{ direction: 'ltr' }}>
 
-
-
-
                 </div>
                 <div className='w-5/12 bg-red-500 overflow-x-scroll' >
                 </div>
