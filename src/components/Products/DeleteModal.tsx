@@ -7,9 +7,9 @@ import { deleteProduct } from '../../services/api/product';
 interface IProps {
     closeModal: () => void
     name: string
-    id:string
+    id: string
 }
-const DeleteModal = ({ closeModal, name ,id}: IProps) => {
+const DeleteModal = ({ closeModal, name, id }: IProps) => {
     const queryClient = useQueryClient()
     const mutation = useMutation({
         mutationFn: deleteProduct,
@@ -18,7 +18,7 @@ const DeleteModal = ({ closeModal, name ,id}: IProps) => {
         },
     })
 
-    const hendleDeleteProduct = ()=>{
+    const hendleDeleteProduct = () => {
         mutation.mutate(id);
     }
 
@@ -31,8 +31,8 @@ const DeleteModal = ({ closeModal, name ,id}: IProps) => {
                 آیا از حذف محصول {name} مطمعن هستید ؟
             </div>
             <div className='flex justify-center gap-4 text-white py-1'>
-                <button className='btn btn-warning' onClick={closeModal}>خیر</button>
                 <button className='btn btn-success' onClick={hendleDeleteProduct}>بله</button>
+                <button className='btn btn-warning' onClick={closeModal}>خیر</button>
             </div>
         </div>
     )

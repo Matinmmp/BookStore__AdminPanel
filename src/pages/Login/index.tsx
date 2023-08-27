@@ -5,7 +5,6 @@ import { useState, useContext } from 'react';
 import publicAxios from "../../services/instance/publiceAxios";
 import Cookies from 'js-cookie';
 import { MainContext } from "../../context/Store";
-import { refreshToken } from './../../services/api/refresh';
 type Inputs = {
     username: string,
     password: string,

@@ -25,6 +25,12 @@ export type Product = {
     rating: Rating,
 }
 
+export type  SubCategory={
+    _id:string,
+    name:string
+}
+
+
 type Rating = {
     rate: Number,
     count: Number,
