@@ -5,9 +5,9 @@ import Row from './Row';
 import { motion } from 'framer-motion';
 
 
-interface IProps {
-    searchText: string
-}
+// interface IProps {
+//     searchText: string
+// }
 
 const Table = () => {
     let { data, status } = useQuery({ queryKey: ['categories'], queryFn: getAllCategories })

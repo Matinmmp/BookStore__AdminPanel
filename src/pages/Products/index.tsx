@@ -1,22 +1,30 @@
 import Table from "../../components/Products/Table"
 import { BiPlusCircle } from 'react-icons/bi';
-import { Product } from "../../models/Types";
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { getAllProducts } from "../../services/api/product";
-
+import { useSearchParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { createPortal } from "react-dom";
+import ModalContainer from "../../components/Modal/ModalContainer";
+import AddModal from "../../components/Products/AddModal";
 
 const index = () => {
 
-    const [products, setProducts] = useState<Product[]>([]);
-    const [totalPage,setTotalPage] = useState<number>();
-    const [page, setPage] = useState(1);
-    useEffect(() => {
-        getAllProducts(page).then(res => {
-            setProducts(res.data.products);
-            setTotalPage(res.total_pages);        
-        });
-    }, [page]);
-    
+    let [searchParams, setSearchParams] = useSearchParams();
+    const [page, setPage] = useState(searchParams.get('page'));
+    const [isOpenAddProductModal, setIsOpenAddProductModal] = useState(false);
+    let { data, isLoading } = useQuery({ queryKey: ['products', page], queryFn: () => getAllProducts(Number(page)) });
+
+    const modalElement = document.getElementById('modal');
+
+    const handleChangePage = (number: number) => {
+        searchParams.set('page', String(number));
+        setSearchParams(searchParams);
+        setPage(String(number))
+    }
+
+    const openAddProductModal = () => setIsOpenAddProductModal(true);
+    const closeAddProductModal = () => setIsOpenAddProductModal(false);
 
     return (
         <div className="felx flex-row gap-8 px-8 ">
@@ -24,18 +32,30 @@ const index = () => {
                 <div className="order-2  ">
                     <input type='text' placeholder='جست و جو' className="input input-accent w-full" />
                 </div>
-                <button className="btn btn-accent flex items-center gap-2 order-1 lg:order-2">اضافه کردن <BiPlusCircle className="text-xl" /></button>
+                <button className="btn btn-accent flex items-center gap-2 order-1 lg:order-2"
+                    onClick={openAddProductModal}>اضافه کردن
+                    <BiPlusCircle className="text-xl" />
+                </button>
             </div>
             <div className="flex flex-col ">
-                <Table products={products} />
-
+                {!isLoading && <Table products={data?.products} />}
                 <div className="join flex flex-row-reverse justify-center mt-4">
-                    {totalPage && Array.from({ length: totalPage }, (v, k) => k + 1).map(item =>
-                        <button onClick={()=>setPage(item)} key={item} className={`join-item btn btn-accent btn-md
-                         ${page === item ? 'btn-active' : ''}`}>{item}</button>
+                    {!isLoading && data?.totalPages && Array.from({ length: data.totalPages }, (v, k) => k + 1).map(number =>
+                        <button onClick={() => handleChangePage(number)} key={number} className={`join-item btn btn-accent btn-md
+                         ${Number(page) === number ? 'btn-active' : ''}`}>{number}</button>
                     )}
                 </div>
             </div>
+            {
+                modalElement &&
+                isOpenAddProductModal &&
+                createPortal(
+                    <ModalContainer>
+                        <AddModal closeModal={closeAddProductModal} />
+                    </ModalContainer>
+                    , modalElement)
+            }
+
         </div>
     )
 }

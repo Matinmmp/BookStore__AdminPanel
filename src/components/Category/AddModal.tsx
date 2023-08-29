@@ -44,7 +44,6 @@ const AddModal = ({ closeModal }: IProps) => {
             queryClient.invalidateQueries({ queryKey: ['categories'] })
         },
     })
-
     
     return (
         <div className="flex flex-col gap-4 min-w-[20rem] min-h-[15rem]" >

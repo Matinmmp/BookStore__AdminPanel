@@ -23,9 +23,9 @@ const index = () => {
         }
         publicAxios.post('/auth/login', user).then(res => {
             Cookies.set('accessToken', res.data.token.accessToken);
-            Cookies.set('refreshToken', res.data.token.accessToken);
+            Cookies.set('refreshToken', res.data.token.refreshToken);
             getUser(res.data.data.user);
-            navigate('/admin/home');
+            navigate('/admin/');
         })
         reset();
     }

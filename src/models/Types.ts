@@ -12,18 +12,24 @@ export type User = {
 
 export type Product = {
     _id: string,
-    category: String,
-    subcategory: String,
-    name: String,
-    slugname: String,
+    category: string,
+    subcategory: string,
+    name: string,
+    slugname: string,
     price: number
     quantity: number
-    brand: String,
-    description: String,
-    thumbnail: String,
-    images: String,
+    brand: string,
+    description: string,
+    thumbnail: string,
+    images: string,
     rating: Rating,
 }
+
+export type  SubCategory={
+    _id:string,
+    name:string
+}
+
 
 type Rating = {
     rate: Number,
