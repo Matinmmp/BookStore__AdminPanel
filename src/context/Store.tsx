@@ -4,10 +4,8 @@ import { User } from '../models/Types';
 interface IContextProps {
     isMenuOpen: boolean,
     handleIsMenuOpen: () => void
-
     user?: User,
     getUser: (user: User) => void
-
 }
 
 type Props = {
