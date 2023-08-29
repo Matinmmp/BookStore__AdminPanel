@@ -1,22 +1,22 @@
 
-import { useState, useEffect } from 'react';
-import { Product } from '../../models/Types';
+import { useState } from 'react';
+
 import { getAllProducts } from '../../services/api/product';
 import Table from '../../components/Price/Table';
-import {BiPlusCircle} from 'react-icons/bi';
+import { useSearchParams } from "react-router-dom";
+import { BiPlusCircle } from 'react-icons/bi';
+import { useQuery } from '@tanstack/react-query';
 
 const index = () => {
-    const [products, setProducts] = useState<Product[]>([]);
-    const [totalPage, setTotalPage] = useState<number>();
-    const [page, setPage] = useState(1);
-    useEffect(() => {
-        getAllProducts(page).then(res => {
-            setProducts(res.data.products);
-            setTotalPage(res.total_pages);
-        });
-    }, [page]);
+    let [searchParams, setSearchParams] = useSearchParams();
+    const [page, setPage] = useState(searchParams.get('page'));
+    let { data, isLoading } = useQuery({ queryKey: ['products', page], queryFn: () => getAllProducts(Number(page)) });
 
-
+    const handleChangePage = (number: number) => {
+        searchParams.set('page', String(number));
+        setSearchParams(searchParams);
+        setPage(String(number))
+    }
     return (
         <div className="felx flex-row gap-8 px-8 ">
             <div className="flex flex-col lg:flex-row gap-4 justify-between py-8">
@@ -26,12 +26,12 @@ const index = () => {
                 <button className="btn btn-accent flex items-center gap-2 order-1 lg:order-2"> ذخیره <BiPlusCircle className="text-xl" /></button>
             </div>
             <div className="flex flex-col ">
-                <Table products={products} />
+                {!isLoading && <Table products={data?.products} />}
 
                 <div className="join flex flex-row-reverse justify-center mt-4">
-                    {totalPage && Array.from({ length: totalPage }, (v, k) => k + 1).map(item =>
-                        <button onClick={() => setPage(item)} key={item} className={`join-item btn btn-accent btn-md
-                         ${page === item ? 'btn-active' : ''}`}>{item}</button>
+                    {data?.totalPages && Array.from({ length: data?.totalPages }, (v, k) => k + 1).map(number =>
+                        <button onClick={() => handleChangePage(number)} key={number} className={`join-item btn btn-accent btn-md
+                         ${Number(page) === number ? 'btn-active' : ''}`}>{number}</button>
                     )}
                 </div>
             </div>

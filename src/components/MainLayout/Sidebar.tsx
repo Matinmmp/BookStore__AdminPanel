@@ -70,7 +70,7 @@ const Sidebar = () => {
 
                                 </NavLink>
 
-                                <NavLink to="/admin/price" className={({ isActive }) => isActive ? "bg-accent p-2 rounded-md" : "p-2"}>
+                                <NavLink to="/admin/price?page=1" className={({ isActive }) => isActive ? "bg-accent p-2 rounded-md" : "p-2"}>
                                     <div className="flex items-center ps-3 gap-4">
                                         <motion.i layout animate={{ fontSize: mini ? '2rem' : '1rem' }} initial={false}>
                                             <AiOutlineAppstore />
