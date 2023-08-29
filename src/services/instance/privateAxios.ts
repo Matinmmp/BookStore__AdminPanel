@@ -10,7 +10,7 @@ const privateAxios = axios.create({
 
 privateAxios.interceptors.request.use(config => {
     const accessToken = Cookies.get('accessToken');
-
+    
     if (accessToken)
         config.headers.Authorization = `Bearer ${accessToken}`;
 
@@ -23,7 +23,7 @@ privateAxios.interceptors.response.use(res => res, async error => {
     const originalConfig = error.config;
     if (error.response) {
         // should be 401
-        if (error.response?.status === 500 && !originalConfig._retry) {
+        if (error.response?.status === 500 && !originalConfig._retry) {  
             originalConfig._retry = true;
             try {
                 const currentRefreshToken = Cookies.get("refreshToken")

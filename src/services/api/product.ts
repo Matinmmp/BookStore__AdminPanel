@@ -1,6 +1,7 @@
 import privateAxios from "../instance/privateAxios";
 import publicAxios from "../instance/publiceAxios"
 
+
 export const getAllProducts = async (pageNumber: Number) => {
     const respons = await publicAxios.get(`/products?page=${pageNumber}&limit=10`);
     return await
@@ -11,6 +12,11 @@ export const getAllProducts = async (pageNumber: Number) => {
         };
 }
 
+export const postProduct = async (product: FormData) => {
+    const response = await privateAxios.post('/products', product);
+    return  response;
+}
+
 export const deleteProduct = async (id: string) => {
-    const response = await privateAxios.delete(`/products/${id}`);
+     await privateAxios.delete(`/products/${id}`);
 }

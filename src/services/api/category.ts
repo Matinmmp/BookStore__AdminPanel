@@ -1,4 +1,5 @@
 import { Category } from "../../models/Types";
+import privateAxios from "../instance/privateAxios";
 import publicAxios from "../instance/publiceAxios"
 
 export const getAllCategories = async (): Promise<Category[]> => {
@@ -11,7 +12,7 @@ export const getCategory =async(id:string):Promise<Category> =>{
     return respons.data.data.category;
 }
 
-export const postCategory = async (data:FormData) => {
-    const response = await publicAxios.post('/categories',data)
+export const postCategory = async (category:FormData) => {
+    const response = await privateAxios.post('/categories',category)
 }   
 
