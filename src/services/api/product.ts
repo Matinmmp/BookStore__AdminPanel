@@ -14,9 +14,14 @@ export const getAllProducts = async (pageNumber: Number) => {
 
 export const postProduct = async (product: FormData) => {
     const response = await privateAxios.post('/products', product);
-    return  response;
+    return response;
 }
 
 export const deleteProduct = async (id: string) => {
-     await privateAxios.delete(`/products/${id}`);
+    await privateAxios.delete(`/products/${id}`);
+}
+
+export const editProductPriceAndQuantity = async (id:string,formData:FormData) => {
+   const response = await privateAxios.patch(`/products/${id}`,formData);
+   return  response ;
 }

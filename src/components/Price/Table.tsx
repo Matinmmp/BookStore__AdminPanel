@@ -1,15 +1,15 @@
+import { MainContext } from "../../context/Store";
 import { Product } from "../../models/Types";
 import Row from './Row';
-
 import { motion } from 'framer-motion';
-
-
+import { useContext } from 'react';
 
 type IProps = {
-    products:Product[];
+    products: Product[];
 }
 
-const Table = ({products}:IProps) => {
+const Table = ({ products }: IProps) => {
+    
     return (
         <div className="relative  shadow-md sm:rounded-lg overflow-auto">
             <motion.table layout className="w-full text-left shadow-md min-w-[45rem]" >
