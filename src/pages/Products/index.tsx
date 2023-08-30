@@ -22,7 +22,8 @@ const index = () => {
         setSearchParams(searchParams);
         setPage(String(number))
     }
-
+  
+    
     const openAddProductModal = () => setIsOpenAddProductModal(true);
     const closeAddProductModal = () => setIsOpenAddProductModal(false);
 
