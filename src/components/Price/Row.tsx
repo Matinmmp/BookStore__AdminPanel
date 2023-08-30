@@ -50,19 +50,6 @@ const Row = ({ product }: IProps) => {
         }
     }, [pricesProdutList, quantitiesProdutList])
 
-    window.addEventListener('keydown', (e) => {
-
-        // if (e.key === "Escape") {
-        //     setActivePrice(false);
-        //     setActiveQuantity(false);
-        //     setQuantity((item) => {
-        //         return { ...item, quantity: product.quantity }
-        //     });
-        //     setPrice((item) => {
-        //         return { ...item, price: product.price }
-        //     });
-        // }
-    });
 
     const addQuantity = () => {
         if (product.quantity !== quantity.quantity)
@@ -92,7 +79,8 @@ const Row = ({ product }: IProps) => {
                 <input type="number" placeholder="تعداد" onBlur={addQuantity}
                     value={quantity.quantity} onChange={handleQuantity}
                     className={`input input-bordered input-sm w-32 ${!activeQuantity && 'hidden'}`} />
-                <span className={`cursor-pointer ${activeQuantity && 'hidden'}`} onDoubleClick={() => setActiveQuantity(true)}>{product.price}</span>
+                <span className={`cursor-pointer ${activeQuantity && 'hidden'}`} onDoubleClick={() => setActiveQuantity(true)}>
+                    {product.quantity}</span>
             </td>
 
         </tr>
