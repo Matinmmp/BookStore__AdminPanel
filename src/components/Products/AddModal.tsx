@@ -92,6 +92,7 @@ const AddModal = ({ closeModal }: IProps) => {
     const mutation = useMutation({
         mutationFn: postProduct,
         onSuccess: () => {
+            closeModal();
             queryClient.invalidateQueries({ queryKey: ['products'] })
         },
     })

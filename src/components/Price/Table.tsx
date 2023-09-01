@@ -1,8 +1,7 @@
-import { MainContext } from "../../context/Store";
 import { Product } from "../../models/Types";
 import Row from './Row';
 import { motion } from 'framer-motion';
-import { useContext } from 'react';
+
 
 type IProps = {
     products: Product[];

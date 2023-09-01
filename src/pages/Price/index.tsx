@@ -1,4 +1,3 @@
-
 import { useState, useContext } from 'react';
 import { editProductPriceAndQuantity, getAllProducts } from '../../services/api/product';
 import Table from '../../components/Price/Table';
@@ -19,6 +18,7 @@ const index = () => {
         setSearchParams(searchParams);
         setPage(String(number))
     }
+    
     const promises: Promise<any>[] = [];
     const queryClient = useQueryClient()
     const mutation = useMutation({
@@ -47,7 +47,6 @@ const index = () => {
                 promises.push(promis);
             })
         }
-        // Promise.all(promises).then(() => { clearQuantitesAndPrices() });
         mutation.mutate();
     }
 
