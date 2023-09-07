@@ -21,11 +21,16 @@ interface IContextProps {
 
     quantitiesProdutList: Quantity[]
     addToQuantitiesProdutList: (item: Quantity) => void
+    deleteFromQuantityProductList:(item: Quantity)=>void
 
     pricesProdutList: Price[]
     addToPricesProdutList: (item: Price) => void
+    deleteFromPriceProductList:(item: Price)=> void
 
-    clearQuantitesAndPrices: () => void
+    clearQuantitesAndPrices: () => void,
+
+    p:String
+    setPage:(number:string)=> void
 }
 
 
@@ -40,6 +45,7 @@ const MainContext = createContext({} as IContextProps);
 const MainProvider = (props: Props) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [user, setUser] = useState<User>();
+    const [p, setP] = useState('');
 
     const [quantitiesProdutList, setQuantitiesProdutList] = useState<Quantity[]>([])
     const [pricesProdutList, setPricesProdutList] = useState<Price[]>([])
@@ -49,9 +55,19 @@ const MainProvider = (props: Props) => {
         setQuantitiesProdutList([...newList, qItem]);
     }
 
+    const deleteFromQuantityProductList =(qItem: Quantity)=>{
+        const newList = quantitiesProdutList.filter((item) => item.id !== qItem.id)
+        setQuantitiesProdutList([...newList]);
+    }
+
     const addToPricesProdutList = (pItem: Price) => {
         const newList = pricesProdutList.filter((item) => item.id !== pItem.id);
         setPricesProdutList([...newList, pItem]);
+    }
+
+    const deleteFromPriceProductList=(pItem: Price)=>{
+        const newList = pricesProdutList.filter((item) => item.id !== pItem.id);
+        setPricesProdutList([...newList]);
     }
 
     const clearQuantitesAndPrices = () => {
@@ -61,10 +77,14 @@ const MainProvider = (props: Props) => {
 
     const getUser = (user: User) => setUser(user);
     const handleIsMenuOpen = () => setIsMenuOpen(!isMenuOpen);
+    const setPage=(number:string)=>{
+        setP(number)
+    }
 
     return <MainContext.Provider value={{
         isMenuOpen, handleIsMenuOpen, user, getUser, quantitiesProdutList, pricesProdutList,
-        addToQuantitiesProdutList, addToPricesProdutList,clearQuantitesAndPrices
+        addToQuantitiesProdutList, addToPricesProdutList,clearQuantitesAndPrices,p,setPage,
+        deleteFromQuantityProductList,deleteFromPriceProductList
     }} >{...props.children}</MainContext.Provider>
 }
 

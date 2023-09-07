@@ -1,12 +1,13 @@
 import Table from "../../components/Products/Table"
 import { BiPlusCircle } from 'react-icons/bi';
-import { useState } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { getAllProducts } from "../../services/api/product";
 import { useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { createPortal } from "react-dom";
 import ModalContainer from "../../components/Modal/ModalContainer";
 import AddModal from "../../components/Products/AddModal";
+import { MainContext } from "../../context/Store";
 
 const index = () => {
 
@@ -22,8 +23,29 @@ const index = () => {
         setSearchParams(searchParams);
         setPage(String(number))
     }
-  
-    
+
+    // useEffect(() => {
+    //     searchParams.set('page', String(data?.page));
+    //     setSearchParams(searchParams);
+    //     setPage(String(data?.page))
+    // }, [data?.totalPages, p])
+
+
+    // useEffect(() => {
+    //     // console.log(data?.totalPages);
+    //     searchParams.set('page', String("1"));
+    //     setSearchParams(searchParams);
+    //     setPage(String("1"))
+
+    //     if (data?.page) {
+    //         console.log(data?.totalPages);
+    //         searchParams.set('page', String(data?.totalPages));
+    //         setSearchParams(searchParams);
+    //         setPage(String(data?.totalPages))
+    //     }
+
+    // }, [data?.totalPages])
+
     const openAddProductModal = () => setIsOpenAddProductModal(true);
     const closeAddProductModal = () => setIsOpenAddProductModal(false);
 

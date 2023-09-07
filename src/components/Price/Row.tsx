@@ -1,4 +1,4 @@
-import { ChangeEvent, useState, useContext, useEffect } from "react";
+import { ChangeEvent, useState, useContext, useEffect, KeyboardEvent } from "react";
 import { Product } from "../../models/Types";
 import { MainContext } from "../../context/Store";
 
@@ -17,24 +17,26 @@ type Price = {
 }
 
 const Row = ({ product }: IProps) => {
+    const numberRegex = /^\d+$/;
     const [activePrice, setActivePrice] = useState(false);
     const [activeQuantity, setActiveQuantity] = useState(false);
-    const { addToPricesProdutList, addToQuantitiesProdutList, pricesProdutList, quantitiesProdutList } = useContext(MainContext)
-
+    const { addToPricesProdutList, addToQuantitiesProdutList,
+        pricesProdutList, quantitiesProdutList, deleteFromPriceProductList, deleteFromQuantityProductList } = useContext(MainContext)
     const [price, setPrice] = useState<Price>({ id: product._id, price: product.price });
     const [quantity, setQuantity] = useState<Quantity>({ id: product._id, quantity: product.quantity });
 
-
     const handlePrice = (e: ChangeEvent<HTMLInputElement>) => {
-        setPrice((item) => {
-            return { ...item, price: Number(e.target.value) }
-        });
+        if (numberRegex.test(e.target.value))
+            setPrice((item) => {
+                return { ...item, price: Number(e.target.value) }
+            });
     }
 
     const handleQuantity = (e: ChangeEvent<HTMLInputElement>) => {
-        setQuantity((item) => {
-            return { ...item, quantity: Number(e.target.value) }
-        });
+        if (numberRegex.test(e.target.value))
+            setQuantity((item) => {
+                return { ...item, quantity: Number(e.target.value) }
+            });
     }
 
     useEffect(() => {
@@ -50,14 +52,34 @@ const Row = ({ product }: IProps) => {
         }
     }, [pricesProdutList, quantitiesProdutList])
 
-
     const addQuantity = () => {
         if (product.quantity !== quantity.quantity)
             addToQuantitiesProdutList(quantity);
     }
+
     const addPrice = () => {
         if (product.price !== price.price)
             addToPricesProdutList(price);
+    }
+
+    const handleCancelPrice = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Escape") {
+            setActivePrice(false);
+            setPrice((item) => {
+                return { ...item, price: product.price }
+            });
+            deleteFromPriceProductList(price);
+        }
+    }
+    
+    const handleCancelQuantity = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Escape") {
+            setActiveQuantity(false);
+            setQuantity((item) => {
+                return { ...item, quantity: product.quantity }
+            });
+            deleteFromQuantityProductList(quantity);
+        }
     }
 
     return (
@@ -68,7 +90,7 @@ const Row = ({ product }: IProps) => {
             </td>
 
             <td className="px-6 py-4 w-3/12 ">
-                <input type="number" placeholder="قیمت"
+                <input type="text" placeholder="قیمت" onKeyDown={handleCancelPrice}
                     value={price.price} onChange={handlePrice} onBlur={addPrice}
                     className={`input input-bordered input-sm w-32 ${!activePrice && 'hidden'}`} />
                 <span className={`cursor-pointer ${activePrice && 'hidden'}`}
@@ -76,7 +98,7 @@ const Row = ({ product }: IProps) => {
             </td>
 
             <td className="px-6 py-4 w-3/12 ">
-                <input type="number" placeholder="تعداد" onBlur={addQuantity}
+                <input type="text" placeholder="تعداد" onBlur={addQuantity} onKeyDown={handleCancelQuantity}
                     value={quantity.quantity} onChange={handleQuantity}
                     className={`input input-bordered input-sm w-32 ${!activeQuantity && 'hidden'}`} />
                 <span className={`cursor-pointer ${activeQuantity && 'hidden'}`} onDoubleClick={() => setActiveQuantity(true)}>

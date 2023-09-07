@@ -7,6 +7,7 @@ import { createPortal } from "react-dom";
 import { useState } from "react";
 import ModalContainer from "../Modal/ModalContainer";
 import DeleteModal from "./DeleteModal";
+import EditModal from "./EditModal";
 
 interface IProps {
     product: Product;
@@ -14,13 +15,19 @@ interface IProps {
 const Row = ({ product }: IProps) => {
 
     let { data, isLoading } = useQuery({ queryKey: [`${product._id}`], queryFn: () => getCategory(product.category) },)
-    
-    
+
+
 
     const [isDeleteProductModalOpen, setIsDeleteProductModalOpen] = useState(false);
+    const [isEditProductModalOpen, setIsEditProductModalOpen] = useState(false);
+
     const modalElement = document.getElementById('modal');
+
     const openDeleteProductModal = () => setIsDeleteProductModalOpen(() => true);
     const closeDeleteProductModal = () => setIsDeleteProductModalOpen(() => false);
+
+    const openEditProductModal = () => setIsEditProductModalOpen(() => true);
+    const closeEditProductModal = () => setIsEditProductModalOpen(() => false);
 
     return (
         <tr className=" flex justify-around items-center hover:bg-accent-focus hover:text-white transition-all w-full">
@@ -45,17 +52,29 @@ const Row = ({ product }: IProps) => {
 
             <td className=" text-right w-3/12 ">
                 <div className="flex gap-2 justify-center items-center text-white">
-                    <button className="btn btn-error text-xl text-white"> <HiMiniPencilSquare /></button>
                     <button className="btn btn-warning text-xl text-white"
-                        onClick={openDeleteProductModal}
-                    > <AiFillDelete /></button>
+                        onClick={openEditProductModal}>
+                        <HiMiniPencilSquare />
+                    </button>
+
+                    <button className="btn btn-error text-xl text-white"
+                        onClick={openDeleteProductModal}> <AiFillDelete />
+                    </button>
                 </div>
             </td>
+            {modalElement &&
+                isEditProductModalOpen &&
+                createPortal(
+                    <ModalContainer>
+                        <EditModal closeModal={closeEditProductModal} product={product}/>
+                    </ModalContainer>
+                    , modalElement)}
+
             {modalElement &&
                 isDeleteProductModalOpen &&
                 createPortal(
                     <ModalContainer>
-                        <DeleteModal closeModal={closeDeleteProductModal} name={product.name } id={product._id} />
+                        <DeleteModal closeModal={closeDeleteProductModal} name={product.name} id={product._id} />
                     </ModalContainer>
                     , modalElement)}
         </tr>

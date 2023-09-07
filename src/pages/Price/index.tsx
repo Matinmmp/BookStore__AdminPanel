@@ -5,6 +5,7 @@ import { useSearchParams } from "react-router-dom";
 import { BiPlusCircle } from 'react-icons/bi';
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
 import { MainContext } from '../../context/Store';
+import { TiCancel } from 'react-icons/ti';
 
 
 const index = () => {
@@ -18,7 +19,7 @@ const index = () => {
         setSearchParams(searchParams);
         setPage(String(number))
     }
-    
+
     const promises: Promise<any>[] = [];
     const queryClient = useQueryClient()
     const mutation = useMutation({
@@ -50,25 +51,38 @@ const index = () => {
         mutation.mutate();
     }
 
-    window.addEventListener('keydown', (e) => {
-        if (e.key === "Escape") clearQuantitesAndPrices();
-    });
+    
+
+    // window.addEventListener('keydown', (e) => {
+    //     if (e.key === "Escape") clearQuantitesAndPrices();
+    // });
 
     return (
         <div className="felx flex-row gap-8 px-8 ">
-            <div className="flex flex-col lg:flex-row gap-4 justify-between py-8">
+            <div className="flex flex-col  lg:flex-row-reverse gap-4 justify-between py-8">
                 <div className="order-2  ">
                     <input type='text' placeholder='جست و جو' className="input input-accent w-full" />
                 </div>
-                {!quantitiesProdutList.length && !pricesProdutList.length ?
-                    <button disabled className={`btn btn-accent flex items-center gap-2 order-1 lg:order-2`} > ذخیره
-                        <BiPlusCircle className="text-xl" />
-                    </button> :
-                    <button onClick={handleSubmit}
-                        className={`btn btn-accent flex items-center gap-2 order-1 lg:order-2`} > ذخیره
-                        <BiPlusCircle className="text-xl" />
-                    </button>
-                }
+                <div className='flex items-center gap-2 '>
+                    {!quantitiesProdutList.length && !pricesProdutList.length ?
+                        <button disabled className={`btn btn-accent flex items-center gap-2 order-1 lg:order-2`} > ذخیره
+                            <BiPlusCircle className="text-xl" />
+                        </button> :
+                        <button onClick={handleSubmit}
+                            className={`btn btn-accent flex items-center gap-2 order-1 lg:order-2`} > ذخیره
+                            <BiPlusCircle className="text-xl" />
+                        </button>
+                    }
+                    {!quantitiesProdutList.length && !pricesProdutList.length ?
+                        <button disabled className={`btn btn-error flex items-center gap-2 order-1 lg:order-2`} > انصراف
+                            <TiCancel className="text-xl" />
+                        </button> :
+                        <button onClick={clearQuantitesAndPrices}
+                            className={`btn btn-error flex items-center gap-2 order-1 lg:order-2`} > انصراف
+                            <TiCancel className="text-xl" />
+                        </button>
+                    }
+                </div>
 
             </div>
             <div className="flex flex-col ">

@@ -1,8 +1,9 @@
 
 import { AiOutlineCloseCircle } from 'react-icons/ai';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation,  useQueryClient } from '@tanstack/react-query';
 import { deleteProduct } from '../../services/api/product';
-
+import { MainContext } from '../../context/Store';
+import {  useContext} from "react";
 
 interface IProps {
     closeModal: () => void
@@ -10,6 +11,7 @@ interface IProps {
     id: string
 }
 const DeleteModal = ({ closeModal, name, id }: IProps) => {
+    const {p,setPage} = useContext(MainContext);
     const queryClient = useQueryClient()
     const mutation = useMutation({
         mutationFn: deleteProduct,
@@ -19,6 +21,7 @@ const DeleteModal = ({ closeModal, name, id }: IProps) => {
     })
 
     const hendleDeleteProduct = () => {
+        setPage(id)
         mutation.mutate(id);
     }
 

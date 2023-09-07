@@ -2,16 +2,18 @@ import { useForm } from 'react-hook-form';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
 import { getAllCategories } from '../../services/api/category';
-import { ChangeEvent, useState, useRef } from 'react';
-import { SubCategory } from '../../models/Types';
+import { ChangeEvent, useState, useRef, useEffect } from 'react';
+import { Product, SubCategory } from '../../models/Types';
 import { getAllSubCategories } from '../../services/api/subCategories';
 import { Editor } from '@tinymce/tinymce-react';
 import { BsPlusCircleDotted } from 'react-icons/bs';
 import { BsFillImageFill } from 'react-icons/bs';
 import { BiMinus } from 'react-icons/bi';
 import { postProduct, updateProduct } from '../../services/api/product';
+import { handleMedias } from '../../utils/image';
 
 interface IProps {
+    product: Product
     closeModal: () => void
 }
 
@@ -27,17 +29,43 @@ type Inputs = {
     images: string
 }
 
-const AddModal = ({ closeModal }: IProps) => {
 
-    const { register, setError, formState: { errors }, getValues, clearErrors } = useForm<Inputs>();
+
+const EditModal = ({ closeModal, product }: IProps) => {
+    // console.log(product);
+
+    const { register, setError, formState: { errors }, getValues, clearErrors, setValue } = useForm<Inputs>();
     const [subCategories, setSubCategories] = useState<SubCategory[]>([]);
     const [thumbnailURL, setThumbnailURL] = useState<any>();
-    const [imagesURL, setImagesURL] = useState<any[]>([]);
+    const [imagesURL, setImagesURL] = useState<any>([]);
     const [selectedImage, setSelectedImage] = useState<number>(0);
     const { data: Categories } = useQuery({ queryKey: ['categories'], queryFn: getAllCategories })
     const editorRef = useRef<any>();
     const imagesFileRef = useRef<any>();
     const thumbnailFileRef = useRef<HTMLInputElement>(null);
+
+
+    useEffect(() => {
+        setValue('name', product.name);
+        setValue('brand', product.brand);
+        setValue('category', product.category);
+        setValue('subcategory', product.subcategory);
+        getAllSubCategories(product.category).then(res => setSubCategories(res));
+        setValue('price', product.price);
+        setValue('quantity', product.quantity);
+
+        const makeURLToFile = async () => {
+            await handleMedias(product.images, 'images').then((res) => setImagesURL(res));
+
+            const url = `http://localhost:8000/images/products/thumbnails/${product.thumbnail}`;
+            const response = await fetch(url);
+            const blob = await response.blob();
+            const file = new File([blob], "image.jpg", { type: "image/jpeg" });
+            setThumbnailURL(file)
+            // await handleMedias(product.thumbnail,'thumbnails').then((res)=>setThumbnailURL(res));
+        }
+        makeURLToFile();
+    }, [])
 
 
     const openThumbnailFileInput = () => thumbnailFileRef.current?.click();
@@ -87,19 +115,22 @@ const AddModal = ({ closeModal }: IProps) => {
         if (!isValid) return isValid;
         return isValid;
     }
+    function s(){
 
+    }
     const queryClient = useQueryClient()
     const mutation = useMutation({
-        mutationFn: postProduct,
+        mutationFn: updateProduct,
         onSuccess: () => {
             closeModal();
             queryClient.invalidateQueries({ queryKey: ['products'] })
         },
     })
 
-    const addProduct = () => {
+    const editProduct = () => {
 
         const formData = new FormData();
+        formData.append('_id',product._id);
         formData.append('name', getValues('name'));
         formData.append('brand', getValues('brand'));
         formData.append('category', getValues('category'));
@@ -116,7 +147,7 @@ const AddModal = ({ closeModal }: IProps) => {
     }
 
     const handleErrors = () => {
-        if (validation()) addProduct()
+        if (validation()) editProduct()
     }
 
     const setThumbnail = () => {
@@ -126,14 +157,14 @@ const AddModal = ({ closeModal }: IProps) => {
 
     const setImage = () => {
         if (imagesFileRef.current?.files?.length) {
-            setImagesURL((imagesURL) => [...imagesURL, imagesFileRef.current.files[0]]);
+            setImagesURL((imagesURL: any) => [...imagesURL, imagesFileRef.current.files[0]]);
             setSelectedImage(imagesURL.length);
         }
     }
 
     const deleteImage = (e: any, index: number) => {
         e.stopPropagation()
-        setImagesURL((imagesURL) => imagesURL.filter((_, imageIndex) => imageIndex !== index));
+        setImagesURL((imagesURL: any) => imagesURL.filter((i: any, imageIndex: number) => imageIndex !== index));
         if (index === 0) setSelectedImage(index)
         else setSelectedImage(index - 1)
     }
@@ -179,7 +210,8 @@ const AddModal = ({ closeModal }: IProps) => {
                         </div>
 
                         <div className="form-contro relative pb-6">
-                            <select {...register("subcategory")} className="select select-accent w-full ">
+                            <select {...register("subcategory")} value={getValues('subcategory')}
+                                className="select select-accent w-full ">
                                 {subCategories?.length ? subCategories?.map((subCateogry) =>
                                     <option value={subCateogry._id} key={subCateogry._id}>{subCateogry.name}</option>)
                                     : <option value={0}>هیچ زیر شاخه ای  وجود ندارد</option>
@@ -209,7 +241,7 @@ const AddModal = ({ closeModal }: IProps) => {
 
                         <div className='relative pb-8'>
                             <Editor onInit={(evt, editor) => editorRef.current = editor}
-                                initialValue='' apiKey='111'
+                                initialValue={product.description} apiKey='111'
                                 init={{
                                     height: 500, menubar: false,
                                     plugins: [
@@ -233,14 +265,14 @@ const AddModal = ({ closeModal }: IProps) => {
 
                 <div className=' w-full lg:w-5/12 overflow-x-clip lg:overflow-x-auto p-4 ' style={{ direction: 'ltr' }}>
                     <div className=' flex flex-col gap-12 '>
-                        <div className={`h-[20rem] flex items-center justify-center  rounded-md relative
-                         ${!thumbnailURL && 'border-dashed border-4'}`}>
+                        <div
+                            className={`h-[20rem] flex items-center justify-center rounded-md relative ${!thumbnailURL && 'border-dashed border-4'}`}>
                             <input type="file" ref={thumbnailFileRef} onChange={setThumbnail}
                                 className="hidden" accept="image/*" />
 
                             <div onClick={openThumbnailFileInput}
                                 className='w-full h-full rounded-md flex items-center justify-center cursor-pointer'>
-                                {thumbnailFileRef.current?.files?.length ?
+                                {thumbnailFileRef.current?.files?.length || thumbnailURL ?
                                     <img src={URL.createObjectURL(thumbnailURL)} className='w-full h-full
                                  object-cover rounded-lg shadow-sm shadow-accent' />
                                     : <div className='flex flex-col items-center justify-center gap-4'>
@@ -257,12 +289,12 @@ const AddModal = ({ closeModal }: IProps) => {
                                 <input type="file" ref={imagesFileRef} onChange={setImage}
                                     className="hidden" accept="image/*" />
 
-                                {imagesURL.map((imageURL, index) =>
+                                {imagesURL.map((imageURL: any, index: number) =>
                                     <div className={`mask mask-squircle relative  ${selectedImage === index && 'scale-110 transition-transform '}`}
                                         key={index} onClick={() => { setSelectedImage(index) }}>
                                         <div className='w-16 h-16 bg-base-300 flex items-center justify-center cursor-pointer'>
-                                            {imagesFileRef.current?.files?.length ? <img src={URL.createObjectURL(imageURL)} className='w-16 h-16 object-cover' />
-                                                : <BsPlusCircleDotted className="text-5xl" />}
+                                            {<img src={URL.createObjectURL(imageURL)} className='w-16 h-16 object-cover' />
+                                            }
                                         </div>
                                         <span className='absolute z-50 top-[5px] right-[5px] rounded-xl bg-red-600 cursor-pointer'
                                             onClick={(e) => deleteImage(e, index)}>
@@ -303,7 +335,7 @@ const AddModal = ({ closeModal }: IProps) => {
 
             <div className='fixed bottom-0 left-0 right-0 py-2 bg-base-100 rounded-b-xl'>
                 <div className='flex justify-center gap-4'>
-                    <button className='btn btn-success' onClick={handleErrors}>افزودن</button>
+                    <button className='btn btn-success' onClick={handleErrors}>ویرایش</button>
                     <button className='btn btn-error' onClick={closeModal}>انصراف</button>
                 </div>
             </div>
@@ -312,4 +344,4 @@ const AddModal = ({ closeModal }: IProps) => {
     )
 }
 
-export default AddModal
+export default EditModal

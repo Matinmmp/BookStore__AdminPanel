@@ -20,7 +20,7 @@ const Header = () => {
     const logout = () => {
         Cookies.remove('accessToken');
         Cookies.remove('refreshToken');
-        logOut();
+        // logOut();
         navigate('/admin/login');
     }
 
