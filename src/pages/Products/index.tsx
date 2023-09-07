@@ -1,20 +1,19 @@
 import Table from "../../components/Products/Table"
 import { BiPlusCircle } from 'react-icons/bi';
-import { useState, useEffect, useContext } from 'react';
+import { useState} from 'react';
 import { getAllProducts } from "../../services/api/product";
 import { useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { createPortal } from "react-dom";
 import ModalContainer from "../../components/Modal/ModalContainer";
 import AddModal from "../../components/Products/AddModal";
-import { MainContext } from "../../context/Store";
 
 const index = () => {
 
     let [searchParams, setSearchParams] = useSearchParams();
     const [page, setPage] = useState(searchParams.get('page'));
     const [isOpenAddProductModal, setIsOpenAddProductModal] = useState(false);
-    let { data, isLoading } = useQuery({ queryKey: ['products', page], queryFn: () => getAllProducts(Number(page)) });
+    let { data, isLoading } = useQuery({ queryKey: [`$orders`, page], queryFn: () => getAllProducts(Number(page)) });
 
     const modalElement = document.getElementById('modal');
 

@@ -79,7 +79,7 @@ const Sidebar = () => {
                                     </div>
                                 </NavLink>
 
-                                <NavLink to="/admin/orders" className={({ isActive }) => isActive ? "bg-accent p-2 rounded-md" : "p-2"}>
+                                <NavLink to="/admin/orders?page=1&deliveryStatus=true" className={({ isActive }) => isActive ? "bg-accent p-2 rounded-md" : "p-2"}>
                                     <div className="flex items-center ps-3 gap-4">
                                         <motion.i layout animate={{ fontSize: mini ? '2rem' : '1rem' }} initial={false}>
                                             <FaShoppingBag />
