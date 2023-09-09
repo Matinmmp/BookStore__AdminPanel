@@ -1,17 +1,16 @@
-import { useForm } from 'react-hook-form';
-import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
-import { getAllCategories } from '../../services/api/category';
-import { ChangeEvent, useState, useRef, useEffect } from 'react';
-import { Product, SubCategory } from '../../models/Types';
 import { getAllSubCategories } from '../../services/api/subCategories';
-import { Editor } from '@tinymce/tinymce-react';
+import { ChangeEvent, useState, useRef, useEffect } from 'react';
+import { getAllCategories } from '../../services/api/category';
+import { updateProduct } from '../../services/api/product';
+import { Product, SubCategory } from '../../models/Types';
+import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { BsPlusCircleDotted } from 'react-icons/bs';
+// import { Editor } from '@tinymce/tinymce-react';
 import { BsFillImageFill } from 'react-icons/bs';
-import { BiMinus } from 'react-icons/bi';
-import { postProduct, updateProduct } from '../../services/api/product';
 import { handleMedias } from '../../utils/image';
-import { useSearchParams } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { BiMinus } from 'react-icons/bi';
 
 interface IProps {
     product: Product
@@ -33,9 +32,6 @@ type Inputs = {
 
 
 const EditModal = ({ closeModal, product }: IProps) => {
-    let [searchParams, setSearchParams] = useSearchParams();
-    const [page, setPage] = useState(searchParams.get('page'));
-
     const { register, setError, formState: { errors }, getValues, clearErrors, setValue } = useForm<Inputs>();
     const [subCategories, setSubCategories] = useState<SubCategory[]>([]);
     const [thumbnailURL, setThumbnailURL] = useState<any>();
@@ -65,7 +61,6 @@ const EditModal = ({ closeModal, product }: IProps) => {
             const blob = await response.blob();
             const file = new File([blob], "image.jpg", { type: "image/jpeg" });
             setThumbnailURL(file)
-            // await handleMedias(product.thumbnail,'thumbnails').then((res)=>setThumbnailURL(res));
         }
         makeURLToFile();
     }, [])
@@ -123,14 +118,14 @@ const EditModal = ({ closeModal, product }: IProps) => {
         mutationFn: updateProduct,
         onSuccess: () => {
             closeModal();
-            queryClient.invalidateQueries({ queryKey: ['products',page] })
+            queryClient.invalidateQueries({ queryKey: ['products'] })
         },
     })
 
     const editProduct = () => {
 
         const formData = new FormData();
-        formData.append('_id',product._id);
+        formData.append('_id', product._id);
         formData.append('name', getValues('name'));
         formData.append('brand', getValues('brand'));
         formData.append('category', getValues('category'));
@@ -255,8 +250,8 @@ const EditModal = ({ closeModal, product }: IProps) => {
                                         'removeformat | help',
                                     content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
                                 }}/> */}
-                                <textarea 
-                                 placeholder='توضیحات' rows={10} className='textarea textarea-accent w-full' ref={editorRef}/>
+                            <textarea
+                                placeholder='توضیحات' rows={10} className='textarea textarea-accent w-full' ref={editorRef} />
 
                             {errors.description && <label className="label text-error absolute bottom-0 ">
                                 <span className="label-text-alt text-error ">{errors.description.message}</span></label>}

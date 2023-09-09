@@ -6,8 +6,8 @@ import Table from "../../components/Products/Table";
 import { useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { BiPlusCircle } from 'react-icons/bi';
-import { createPortal } from "react-dom";
 import { useState, useEffect } from 'react';
+import { createPortal } from "react-dom";
 
 const index = () => {
     let [searchParams, setSearchParams] = useSearchParams();
@@ -40,9 +40,6 @@ const index = () => {
     return (
         <div className="felx flex-row gap-8 px-8 ">
             <div className="flex flex-col lg:flex-row gap-4 justify-between py-8">
-                <div className="order-2  ">
-                    <input type='text' placeholder='جست و جو' className="input input-accent w-full" />
-                </div>
                 <button className="btn btn-accent flex items-center gap-2 order-1 lg:order-2"
                     onClick={openAddProductModal}>اضافه کردن
                     <BiPlusCircle className="text-xl" />

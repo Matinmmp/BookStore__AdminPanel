@@ -98,7 +98,7 @@ const AddModal = ({ closeModal }: IProps) => {
                 hideProgressBar: false,
                 closeOnClick: true,
             });
-            queryClient.invalidateQueries({ queryKey: ['products',page] })
+            queryClient.invalidateQueries({ queryKey: ['products'] })
         },
     })
 
