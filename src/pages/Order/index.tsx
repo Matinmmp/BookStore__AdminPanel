@@ -34,9 +34,6 @@ const index = () => {
     return (
         <div className="felx flex-row gap-8 px-8 ">
             <div className="flex flex-col   lg:flex-row gap-4 justify-between py-8">
-                <div className="order-2  w-full">
-                    <input type='text' placeholder='جست و جو' className="input input-accent w-full" />
-                </div>
                 <div>
                     <select className='px-2 py-1 cursor-pointer rounded-md bg-accent text-white' onChange={handleOrder} value={deliver}>
                         <option value="true" className='p-2'>تحویل داده شده</option>

@@ -93,15 +93,7 @@ const Sidebar = () => {
                                         <motion.i layout animate={{ fontSize: mini ? '2rem' : '1rem' }} initial={false}>
                                             <BiSolidCategoryAlt />
                                         </motion.i>
-                                        {mini ? '' : <motion.span layout> دسنه بندی ها </motion.span>}
-                                    </div>
-                                </NavLink>
-                                <NavLink to="/admin/subcategories" className={({ isActive }) => isActive ? "bg-accent p-2 rounded-md" : "p-2"}>
-                                    <div className="flex items-center ps-3 gap-4">
-                                        <motion.i layout animate={{ fontSize: mini ? '2rem' : '1rem' }} initial={false}>
-                                            <VscTypeHierarchySub />
-                                        </motion.i>
-                                        {mini ? '' : <motion.span layout> زیر دسته بندی </motion.span>}
+                                        {mini ? '' : <motion.span layout> دسته بندی ها </motion.span>}
                                     </div>
                                 </NavLink>
                             </div>
