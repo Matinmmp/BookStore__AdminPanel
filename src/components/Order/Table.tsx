@@ -1,8 +1,5 @@
 import { Order} from "../../models/Types";
 import Row from './Row';
-import { motion } from 'framer-motion';
-
-
 
 type IProps = {
     orders:Order[];
@@ -10,7 +7,7 @@ type IProps = {
 
 const Table = ({orders}:IProps) => {
     return (
-        <div className="relative  shadow-md sm:rounded-lg overflow-y-auto">
+        <div className="relative  shadow-md sm:rounded-lg overflow-y-auto ">
             <table  className="w-full text-left shadow-md min-w-[45rem]" >
                 <thead className=" text-white flex bg-accent  text-[.9rem]">
                     <tr className="flex w-full justify-around text-center">

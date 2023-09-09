@@ -1,9 +1,9 @@
+import { useQueryClient, useMutation } from "@tanstack/react-query";
+import { postCategory } from '../../services/api/category';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { BsPlusCircleDotted } from 'react-icons/bs';
 import { useRef, useState } from 'react';
-import { postCategory } from '../../services/api/category';
-import { useQueryClient, useMutation } from "@tanstack/react-query";
 
 interface IProps {
     closeModal: () => void

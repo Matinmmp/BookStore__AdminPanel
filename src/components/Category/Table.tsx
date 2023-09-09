@@ -1,36 +1,18 @@
-
-import {  useQuery } from "@tanstack/react-query";
-import { getAllCategories } from "../../services/api/category"
+import { Category } from '../../models/Types';
 import Row from './Row';
-import { motion } from 'framer-motion';
 
+interface IProps{
+    categories:Category[]
+}
 
-// interface IProps {
-//     searchText: string
-// }
+const Table = ({categories}:IProps) => {
+ 
 
-const Table = () => {
-    let { data, status } = useQuery({ queryKey: ['categories'], queryFn: getAllCategories })
-
-    if (status === 'pending') {
-        return <div>Loading ....</div>
-    }
-
-    if (status === 'error') {
-        return <div>error</div>
-    }
-    if (data?.length === 0) {
-        return <div className="flex ">
-            <p className="text-2xl mx-auto">هیچ اطلاعاتی برای نمایش وجود ندارد</p>
-        </div>
-    }
-
-    if (data?.length)
     return (
         <div className="relative overflow-auto shadow-md sm:rounded-lg">
-            <motion.table layout className="w-full text-left shadow-md " >
-                <motion.thead layout className=" text-white flex bg-accent  text-[.9rem]">
-                    <motion.tr className="flex w-full justify-around text-center">
+            <table className="w-full text-left shadow-md " >
+                <thead className=" text-white flex bg-accent  text-[.9rem]">
+                    <tr className="flex w-full justify-around text-center">
                         <th scope="col" className="px-6 py-3">
                             آیکون
                         </th>
@@ -40,14 +22,14 @@ const Table = () => {
                         <th scope="col" className="px-6 py-3">
                             عملیات
                         </th>
-                    </motion.tr>
-                </motion.thead>
+                    </tr>
+                </thead>
 
-                <motion.tbody className="text-center max-h-[60vh] flex flex-col overflow-y-auto w-full">
-                    {data.length > 0 ? data.map(item => <Row key={item._id} category={item} />) : null}
-                </motion.tbody>
+                <tbody className="text-center max-h-[60vh] flex flex-col overflow-y-auto w-full">
+                    {categories.length > 0 ? categories.map(item => <Row key={item._id} category={item} />) : null}
+                </tbody>
 
-            </motion.table>
+            </table>
         </div>
     )
 }

@@ -1,6 +1,6 @@
-import axios from "axios";
 import { BASE_URL } from "../../configs/constans";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 
 const publicAxios = axios.create({
@@ -13,7 +13,7 @@ publicAxios.interceptors.request.use(config => config, error => Promise.reject(e
 publicAxios.interceptors.response.use(res => res,
     error => {
         if (error.response.status === 401) 
-         toast.error('همچین کاربری وجود ندارد', {
+         toast.error('کاربری با این نام کاربری وجود ندارد.', {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,

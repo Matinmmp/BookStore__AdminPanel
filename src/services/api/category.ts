@@ -1,10 +1,15 @@
-import { Category } from "../../models/Types";
 import privateAxios from "../instance/privateAxios";
-import publicAxios from "../instance/publiceAxios"
+import publicAxios from "../instance/publiceAxios";
+import { Category } from "../../models/Types";
 
-export const getAllCategories = async (): Promise<Category[]> => {
+export const getAllCategories = async () => {
     const respons = await publicAxios.get('/categories');
-    return await respons.data.data.categories
+    return await
+        {
+            categories: respons.data.data.categories,
+            page: respons.data.page,
+            totalPages: respons.data.total_pages
+        };
 }
 
 export const getCategory =async(id:string):Promise<Category> =>{
@@ -13,6 +18,6 @@ export const getCategory =async(id:string):Promise<Category> =>{
 }
 
 export const postCategory = async (category:FormData) => {
-    const response = await privateAxios.post('/categories',category)
+     await privateAxios.post('/categories',category)
 }   
 

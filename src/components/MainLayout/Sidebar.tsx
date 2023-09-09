@@ -1,14 +1,14 @@
-import { Link, NavLink } from "react-router-dom"
 import { FaCartShopping, FaChevronLeft, FaChevronRight } from 'react-icons/fa6';
-import { BiSolidCategoryAlt } from 'react-icons/bi';
-import { AiOutlineClose } from 'react-icons/ai';
 import { VscTypeHierarchySub } from 'react-icons/vsc';
-import { FaShoppingBag } from 'react-icons/fa';
+import { BiSolidCategoryAlt } from 'react-icons/bi';
 import { AiOutlineAppstore } from 'react-icons/ai';
-import { AiFillHome } from 'react-icons/ai'
-import { motion } from 'framer-motion'
-import { useContext, useState } from 'react';
 import { MainContext } from "../../context/Store";
+import { Link, NavLink } from "react-router-dom";
+import { AiOutlineClose } from 'react-icons/ai';
+import { FaShoppingBag } from 'react-icons/fa';
+import { useContext, useState } from 'react';
+import { AiFillHome } from 'react-icons/ai';
+import { motion } from 'framer-motion';
 
 
 const Sidebar = () => {
@@ -93,15 +93,7 @@ const Sidebar = () => {
                                         <motion.i layout animate={{ fontSize: mini ? '2rem' : '1rem' }} initial={false}>
                                             <BiSolidCategoryAlt />
                                         </motion.i>
-                                        {mini ? '' : <motion.span layout> دسنه بندی ها </motion.span>}
-                                    </div>
-                                </NavLink>
-                                <NavLink to="/admin/subcategories" className={({ isActive }) => isActive ? "bg-accent p-2 rounded-md" : "p-2"}>
-                                    <div className="flex items-center ps-3 gap-4">
-                                        <motion.i layout animate={{ fontSize: mini ? '2rem' : '1rem' }} initial={false}>
-                                            <VscTypeHierarchySub />
-                                        </motion.i>
-                                        {mini ? '' : <motion.span layout> زیر دسته بندی </motion.span>}
+                                        {mini ? '' : <motion.span layout> دسته بندی ها </motion.span>}
                                     </div>
                                 </NavLink>
                             </div>

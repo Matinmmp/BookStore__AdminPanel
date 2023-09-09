@@ -8,7 +8,7 @@ const Row = ({ order }: IProps) => {
     const createData = new Date(order.createdAt)
 
     return (
-        <tr className= " flex items-center hover:bg-accent-focus w-full ">
+        <tr className= " flex items-center hover:bg-accent-focus w-full hover:text-white transition-all">
 
             <td className="px-6 py-4 w-3/12">
              متین محمدی

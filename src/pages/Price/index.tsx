@@ -1,11 +1,12 @@
-import { useState, useContext } from 'react';
 import { editProductPriceAndQuantity, getAllProducts } from '../../services/api/product';
-import Table from '../../components/Price/Table';
-import { useSearchParams } from "react-router-dom";
-import { BiPlusCircle } from 'react-icons/bi';
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
+import { useSearchParams } from "react-router-dom";
 import { MainContext } from '../../context/Store';
+import Table from '../../components/Price/Table';
+import { BiPlusCircle } from 'react-icons/bi';
+import { useState, useContext } from 'react';
 import { TiCancel } from 'react-icons/ti';
+import { useEffect } from 'react';
 
 
 const index = () => {
@@ -51,18 +52,17 @@ const index = () => {
         mutation.mutate();
     }
 
-    
+    useEffect(() => {
+        if (!isLoading)
+            if (data?.products.length === 0)
+                handleChangePage(data?.totalPages)
 
-    // window.addEventListener('keydown', (e) => {
-    //     if (e.key === "Escape") clearQuantitesAndPrices();
-    // });
+    }, [data?.products.length])
 
     return (
         <div className="felx flex-row gap-8 px-8 ">
             <div className="flex flex-col  lg:flex-row-reverse gap-4 justify-between py-8">
-                <div className="order-2  ">
-                    <input type='text' placeholder='جست و جو' className="input input-accent w-full" />
-                </div>
+
                 <div className='flex items-center gap-2 '>
                     {!quantitiesProdutList.length && !pricesProdutList.length ?
                         <button disabled className={`btn btn-accent flex items-center gap-2 order-1 lg:order-2`} > ذخیره

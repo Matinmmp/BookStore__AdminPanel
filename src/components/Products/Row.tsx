@@ -1,27 +1,23 @@
-import { Product } from "../../models/Types";
-import { AiFillDelete } from 'react-icons/ai';
+import { getCategory } from "../../services/api/category";
+import ModalContainer from "../Modal/ModalContainer";
 import { HiMiniPencilSquare } from 'react-icons/hi2';
 import { useQuery } from "@tanstack/react-query";
-import { getCategory } from "../../services/api/category";
+import { AiFillDelete } from 'react-icons/ai';
+import { Product } from "../../models/Types";
 import { createPortal } from "react-dom";
-import { useState } from "react";
-import ModalContainer from "../Modal/ModalContainer";
 import DeleteModal from "./DeleteModal";
 import EditModal from "./EditModal";
+import { useState } from "react";
 
 interface IProps {
     product: Product;
 }
 const Row = ({ product }: IProps) => {
-
+    const modalElement = document.getElementById('modal');
     let { data, isLoading } = useQuery({ queryKey: [`${product._id}`], queryFn: () => getCategory(product.category) },)
-
-
 
     const [isDeleteProductModalOpen, setIsDeleteProductModalOpen] = useState(false);
     const [isEditProductModalOpen, setIsEditProductModalOpen] = useState(false);
-
-    const modalElement = document.getElementById('modal');
 
     const openDeleteProductModal = () => setIsDeleteProductModalOpen(() => true);
     const closeDeleteProductModal = () => setIsDeleteProductModalOpen(() => false);

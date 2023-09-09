@@ -1,10 +1,12 @@
+import publicAxios from "../../services/instance/publiceAxios";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { FaEyeSlash, FaEye } from 'react-icons/fa6';
+import { MainContext } from "../../context/Store";
 import { useNavigate } from 'react-router-dom';
 import { useState, useContext } from 'react';
-import publicAxios from "../../services/instance/publiceAxios";
+import { toast } from "react-toastify";
 import Cookies from 'js-cookie';
-import { MainContext } from "../../context/Store";
+
 type Inputs = {
     username: string,
     password: string,
@@ -16,6 +18,7 @@ const index = () => {
     const [showPassword, setShowPassword] = useState(false)
     const navigate = useNavigate();
     const {getUser} = useContext(MainContext);
+
     const onSubmit: SubmitHandler<Inputs> = (data) => {
         const user = {
             username: data.username,
@@ -25,6 +28,16 @@ const index = () => {
             Cookies.set('accessToken', res.data.token.accessToken);
             Cookies.set('refreshToken', res.data.token.refreshToken);
             getUser(res.data.data.user);
+            toast.success(`${res.data.data.user.firstname} به پنل مدیریت خوش آمدید`, {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                });
             navigate('/admin/orders?page=1&deliveryStatus=true');
         })
         reset();
@@ -71,13 +84,6 @@ const index = () => {
                                     <span className="label-text-alt text-error">{errors.password?.message} </span>
                                 </label>}
                         </div>
-
-                        {/* <div className="form-control">
-                            <label className="cursor-pointer label flex justify-start gap-2">
-                                <input type="checkbox" className="checkbox checkbox-accent" {...register("rememberme")} />
-                                <span className="label-text text-white">من را به خاطر بسپار</span>
-                            </label>
-                        </div> */}
 
                         <button className="btn btn-md btn-accent mt-8 text-lg">ورود</button>
 

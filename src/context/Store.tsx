@@ -1,8 +1,6 @@
 import { createContext, useState } from 'react';
 import { User } from '../models/Types';
 
-
-
 type Quantity = {
     id: string
     quantity: number
@@ -28,9 +26,6 @@ interface IContextProps {
     deleteFromPriceProductList:(item: Price)=> void
 
     clearQuantitesAndPrices: () => void,
-
-    p:String
-    setPage:(number:string)=> void
 }
 
 
@@ -45,7 +40,6 @@ const MainContext = createContext({} as IContextProps);
 const MainProvider = (props: Props) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [user, setUser] = useState<User>();
-    const [p, setP] = useState('');
 
     const [quantitiesProdutList, setQuantitiesProdutList] = useState<Quantity[]>([])
     const [pricesProdutList, setPricesProdutList] = useState<Price[]>([])
@@ -77,13 +71,10 @@ const MainProvider = (props: Props) => {
 
     const getUser = (user: User) => setUser(user);
     const handleIsMenuOpen = () => setIsMenuOpen(!isMenuOpen);
-    const setPage=(number:string)=>{
-        setP(number)
-    }
 
     return <MainContext.Provider value={{
         isMenuOpen, handleIsMenuOpen, user, getUser, quantitiesProdutList, pricesProdutList,
-        addToQuantitiesProdutList, addToPricesProdutList,clearQuantitesAndPrices,p,setPage,
+        addToQuantitiesProdutList, addToPricesProdutList,clearQuantitesAndPrices,
         deleteFromQuantityProductList,deleteFromPriceProductList
     }} >{...props.children}</MainContext.Provider>
 }

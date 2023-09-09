@@ -1,5 +1,5 @@
 import privateAxios from "../instance/privateAxios";
-import publicAxios from "../instance/publiceAxios"
+import publicAxios from "../instance/publiceAxios";
 
 
 export const getAllProducts = async (pageNumber: Number) => {

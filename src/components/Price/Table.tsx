@@ -1,6 +1,6 @@
 import { Product } from "../../models/Types";
-import Row from './Row';
 import { motion } from 'framer-motion';
+import Row from './Row';
 
 
 type IProps = {
@@ -8,13 +8,16 @@ type IProps = {
 }
 
 const Table = ({ products }: IProps) => {
-    
+
     return (
         <div className="relative  shadow-md sm:rounded-lg overflow-auto">
             <motion.table layout className="w-full text-left shadow-md min-w-[45rem]" >
                 <motion.thead layout className=" text-white flex bg-accent  text-[.9rem]">
                     <motion.tr className="flex w-full justify-around text-center">
-                        <th scope="col" className="px-6 py-3 w-6/12">
+                        <th scope="col" className="px-6 py-3 w-3/12">
+                            تصویر
+                        </th>
+                        <th scope="col" className="px-6 py-3 w-3/12">
                             نام
                         </th>
                         <th scope="col" className="px-6 py-3 w-3/12">

@@ -1,19 +1,28 @@
-import Table from "../../components/Products/Table"
-import { BiPlusCircle } from 'react-icons/bi';
-import { useState} from 'react';
+import ModalContainer from "../../components/Modal/ModalContainer";
 import { getAllProducts } from "../../services/api/product";
+import AddModal from "../../components/Products/AddModal";
+import Loading from "../../components/Loading/Loading";
+import Table from "../../components/Products/Table";
 import { useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import { BiPlusCircle } from 'react-icons/bi';
+import { useState, useEffect } from 'react';
 import { createPortal } from "react-dom";
-import ModalContainer from "../../components/Modal/ModalContainer";
-import AddModal from "../../components/Products/AddModal";
 
 const index = () => {
-
     let [searchParams, setSearchParams] = useSearchParams();
-    const [page, setPage] = useState(searchParams.get('page'));
+    let pageNumber = '1'
+    if (!Number.isNaN(Number(searchParams.get('page')))) pageNumber = String(searchParams.get('page'));
+    const [page, setPage] = useState(pageNumber);
     const [isOpenAddProductModal, setIsOpenAddProductModal] = useState(false);
     let { data, isLoading } = useQuery({ queryKey: ['products', page], queryFn: () => getAllProducts(Number(page)) });
+
+    useEffect(() => {
+        if (!isLoading)
+            if (data?.products.length === 0)
+                handleChangePage(data?.totalPages)
+
+    }, [data?.products.length])
 
     const modalElement = document.getElementById('modal');
 
@@ -23,37 +32,14 @@ const index = () => {
         setPage(String(number))
     }
 
-    // useEffect(() => {
-    //     searchParams.set('page', String(data?.page));
-    //     setSearchParams(searchParams);
-    //     setPage(String(data?.page))
-    // }, [data?.totalPages, p])
-
-
-    // useEffect(() => {
-    //     // console.log(data?.totalPages);
-    //     searchParams.set('page', String("1"));
-    //     setSearchParams(searchParams);
-    //     setPage(String("1"))
-
-    //     if (data?.page) {
-    //         console.log(data?.totalPages);
-    //         searchParams.set('page', String(data?.totalPages));
-    //         setSearchParams(searchParams);
-    //         setPage(String(data?.totalPages))
-    //     }
-
-    // }, [data?.totalPages])
-
     const openAddProductModal = () => setIsOpenAddProductModal(true);
     const closeAddProductModal = () => setIsOpenAddProductModal(false);
+
+    if (isLoading) return <Loading />
 
     return (
         <div className="felx flex-row gap-8 px-8 ">
             <div className="flex flex-col lg:flex-row gap-4 justify-between py-8">
-                <div className="order-2  ">
-                    <input type='text' placeholder='جست و جو' className="input input-accent w-full" />
-                </div>
                 <button className="btn btn-accent flex items-center gap-2 order-1 lg:order-2"
                     onClick={openAddProductModal}>اضافه کردن
                     <BiPlusCircle className="text-xl" />
