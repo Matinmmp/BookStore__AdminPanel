@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { createPortal } from "react-dom";
 import ModalContainer from "../../components/Modal/ModalContainer";
 import AddModal from "../../components/Products/AddModal";
+import Loading from "../../components/Loading/Loading";
 
 const index = () => {
 
@@ -23,27 +24,7 @@ const index = () => {
         setPage(String(number))
     }
 
-    // useEffect(() => {
-    //     searchParams.set('page', String(data?.page));
-    //     setSearchParams(searchParams);
-    //     setPage(String(data?.page))
-    // }, [data?.totalPages, p])
-
-
-    // useEffect(() => {
-    //     // console.log(data?.totalPages);
-    //     searchParams.set('page', String("1"));
-    //     setSearchParams(searchParams);
-    //     setPage(String("1"))
-
-    //     if (data?.page) {
-    //         console.log(data?.totalPages);
-    //         searchParams.set('page', String(data?.totalPages));
-    //         setSearchParams(searchParams);
-    //         setPage(String(data?.totalPages))
-    //     }
-
-    // }, [data?.totalPages])
+    if(isLoading) return <Loading/>
 
     const openAddProductModal = () => setIsOpenAddProductModal(true);
     const closeAddProductModal = () => setIsOpenAddProductModal(false);

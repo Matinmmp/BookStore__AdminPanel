@@ -5,13 +5,13 @@ import { motion } from 'framer-motion';
 
 const MainLayout = () => {
     return (
-        <motion.div layout className='flex' >
+        <motion.div layout className='flex h-full' >
             <div>
                 <Sidebar />
             </div>
             <motion.div layout className='flex flex-col w-full' >
                 <Header />
-                <main className='p-4'>
+                <main className='p-4 h-full'>
                     <Outlet />
                 </main>
 
