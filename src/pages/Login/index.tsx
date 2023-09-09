@@ -18,6 +18,7 @@ const index = () => {
     const [showPassword, setShowPassword] = useState(false)
     const navigate = useNavigate();
     const {getUser} = useContext(MainContext);
+
     const onSubmit: SubmitHandler<Inputs> = (data) => {
         const user = {
             username: data.username,
@@ -83,13 +84,6 @@ const index = () => {
                                     <span className="label-text-alt text-error">{errors.password?.message} </span>
                                 </label>}
                         </div>
-
-                        {/* <div className="form-control">
-                            <label className="cursor-pointer label flex justify-start gap-2">
-                                <input type="checkbox" className="checkbox checkbox-accent" {...register("rememberme")} />
-                                <span className="label-text text-white">من را به خاطر بسپار</span>
-                            </label>
-                        </div> */}
 
                         <button className="btn btn-md btn-accent mt-8 text-lg">ورود</button>
 

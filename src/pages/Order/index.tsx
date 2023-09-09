@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
+import {useState } from "react";
 import Table from "../../components/Order/Table";
-import { Order } from "../../models/Types";
 import { getAllOrders } from "../../services/api/order";
 import { useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
@@ -19,12 +18,12 @@ const index = () => {
         setPage(String(number))
     }
     const handleOrder = (e: any) => {
-        setDeliver(e.target.value);
         searchParams.set('deliveryStatus', e.target.value);
         searchParams.set('page', '1');
         setSearchParams(searchParams);
-        setPage('1')
         setDeliveryStatus(e.target.value);
+        setDeliver(e.target.value);
+        setPage('1')
     }
 
     return (
