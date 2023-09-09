@@ -1,6 +1,6 @@
-import { Outlet } from 'react-router-dom';
 import Sidebar from '../components/MainLayout/Sidebar';
 import Header from '../components/MainLayout/Header';
+import { Outlet } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 const MainLayout = () => {

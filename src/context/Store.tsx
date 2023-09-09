@@ -1,8 +1,6 @@
 import { createContext, useState } from 'react';
 import { User } from '../models/Types';
 
-
-
 type Quantity = {
     id: string
     quantity: number

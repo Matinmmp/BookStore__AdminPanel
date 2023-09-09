@@ -1,5 +1,5 @@
-import Cookies from "js-cookie";
 import {Navigate, useLocation} from "react-router-dom";
+import Cookies from "js-cookie";
 
 interface IProps {
     children: JSX.Element

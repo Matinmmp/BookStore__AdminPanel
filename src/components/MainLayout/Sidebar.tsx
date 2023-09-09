@@ -1,14 +1,14 @@
-import { Link, NavLink } from "react-router-dom"
 import { FaCartShopping, FaChevronLeft, FaChevronRight } from 'react-icons/fa6';
-import { BiSolidCategoryAlt } from 'react-icons/bi';
-import { AiOutlineClose } from 'react-icons/ai';
 import { VscTypeHierarchySub } from 'react-icons/vsc';
-import { FaShoppingBag } from 'react-icons/fa';
+import { BiSolidCategoryAlt } from 'react-icons/bi';
 import { AiOutlineAppstore } from 'react-icons/ai';
-import { AiFillHome } from 'react-icons/ai'
-import { motion } from 'framer-motion'
-import { useContext, useState } from 'react';
 import { MainContext } from "../../context/Store";
+import { Link, NavLink } from "react-router-dom";
+import { AiOutlineClose } from 'react-icons/ai';
+import { FaShoppingBag } from 'react-icons/fa';
+import { useContext, useState } from 'react';
+import { AiFillHome } from 'react-icons/ai';
+import { motion } from 'framer-motion';
 
 
 const Sidebar = () => {

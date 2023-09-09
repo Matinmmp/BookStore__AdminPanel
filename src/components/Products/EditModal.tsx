@@ -1,9 +1,9 @@
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
 import { getAllSubCategories } from '../../services/api/subCategories';
+import { Category, Product, SubCategory } from '../../models/Types';
 import { ChangeEvent, useState, useRef, useEffect } from 'react';
 import { getAllCategories } from '../../services/api/category';
 import { updateProduct } from '../../services/api/product';
-import { Product, SubCategory } from '../../models/Types';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { BsPlusCircleDotted } from 'react-icons/bs';
 // import { Editor } from '@tinymce/tinymce-react';
@@ -197,7 +197,7 @@ const EditModal = ({ closeModal, product }: IProps) => {
                             <select {...register("category")}
                                 className="select select-accent w-full " defaultValue={0} onChange={hanldeCategoryChange}>
                                 <option disabled value={0}>یک دسته بندی انتخاب کنید</option>
-                                {Categories?.map((category) =>
+                                {Categories?.categories?.map((category:Category) =>
                                     <option value={category._id} key={category._id}>{category.name}</option>)}
                             </select>
                             {errors.category && <label className="label text-error absolute bottom-0 p-0">

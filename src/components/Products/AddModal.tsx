@@ -1,12 +1,12 @@
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
-import { postProduct } from '../../services/api/product';
 import { getAllSubCategories } from '../../services/api/subCategories';
 import { getAllCategories } from '../../services/api/category';
+import { Category, SubCategory } from '../../models/Types';
+import { postProduct } from '../../services/api/product';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { ChangeEvent, useState, useRef } from 'react';
 import { BsPlusCircleDotted } from 'react-icons/bs';
 import { BsFillImageFill } from 'react-icons/bs';
-import { SubCategory } from '../../models/Types';
 import { useForm } from 'react-hook-form';
 import { BiMinus } from 'react-icons/bi';
 import { toast } from 'react-toastify';
@@ -103,7 +103,6 @@ const AddModal = ({ closeModal }: IProps) => {
     })
 
     const addProduct = () => {
-
         const formData = new FormData();
         formData.append('name', getValues('name'));
         formData.append('brand', getValues('brand'));
@@ -176,7 +175,7 @@ const AddModal = ({ closeModal }: IProps) => {
                             <select {...register("category")}
                                 className="select select-accent w-full " defaultValue={0} onChange={hanldeCategoryChange}>
                                 <option disabled value={0}>یک دسته بندی انتخاب کنید</option>
-                                {Categories?.map((category) =>
+                                {Categories?.categories?.map((category:Category) =>
                                     <option value={category._id} key={category._id}>{category.name}</option>)}
                             </select>
                             {errors.category && <label className="label text-error absolute bottom-0 p-0">

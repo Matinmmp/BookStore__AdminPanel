@@ -1,6 +1,6 @@
-import axios from "axios";
 import { BASE_URL } from "../../configs/constans";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 
 const publicAxios = axios.create({

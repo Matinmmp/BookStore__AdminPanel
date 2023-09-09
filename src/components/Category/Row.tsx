@@ -1,6 +1,6 @@
+import { HiMiniPencilSquare } from 'react-icons/hi2';
 import { Category } from "../../models/Types";
 import {AiFillDelete} from 'react-icons/ai';
-import { HiMiniPencilSquare } from 'react-icons/hi2';
 
 interface IProps {
     category: Category;

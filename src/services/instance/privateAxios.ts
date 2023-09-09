@@ -1,8 +1,8 @@
 
-import axios from 'axios'
-import { BASE_URL } from '../../configs/constans'
-import Cookies from 'js-cookie';
+import { BASE_URL } from '../../configs/constans';
 import { refreshToken } from '../api/refresh';
+import Cookies from 'js-cookie';
+import axios from 'axios';
 
 const privateAxios = axios.create({
     baseURL: BASE_URL

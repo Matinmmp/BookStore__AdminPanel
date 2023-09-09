@@ -1,8 +1,8 @@
-import {useState } from "react";
-import Table from "../../components/Order/Table";
 import { getAllOrders } from "../../services/api/order";
 import { useSearchParams } from "react-router-dom";
+import Table from "../../components/Order/Table";
 import { useQuery } from "@tanstack/react-query";
+import {useState,useEffect } from "react";
 
 
 const index = () => {
@@ -25,7 +25,12 @@ const index = () => {
         setDeliver(e.target.value);
         setPage('1')
     }
+    useEffect(() => {
+        if (!isLoading)
+            if (data?.orders.length === 0)
+                handleChangePage(data?.totalPages)
 
+    }, [data?.orders.length])
     return (
         <div className="felx flex-row gap-8 px-8 ">
             <div className="flex flex-col   lg:flex-row gap-4 justify-between py-8">
@@ -40,10 +45,10 @@ const index = () => {
                 </div>
             </div>
             <div className="flex flex-col ">
-                {!isLoading && <Table orders={data.data.orders} />}
+                {!isLoading && <Table orders={data?.orders} />}
 
                 <div className="join flex flex-row-reverse justify-center mt-4">
-                {!isLoading && data.total_pages && Array.from({ length: data.total_pages }, (v, k) => k + 1).map(number =>
+                {!isLoading && data?.totalPages && Array.from({ length: data.totalPages }, (v, k) => k + 1).map(number =>
                         <button onClick={() => handleChangePage(number)} key={number} className={`join-item btn btn-accent btn-md
                          ${Number(page) === number ? 'btn-active' : ''}`}>{number}</button>
                     )}
