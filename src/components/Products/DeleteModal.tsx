@@ -1,9 +1,8 @@
 
-import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { useMutation,  useQueryClient } from '@tanstack/react-query';
 import { deleteProduct } from '../../services/api/product';
-import { MainContext } from '../../context/Store';
-import {  useContext} from "react";
+import { AiOutlineCloseCircle } from 'react-icons/ai';
+import {toast} from 'react-toastify';
 
 interface IProps {
     closeModal: () => void
@@ -11,17 +10,21 @@ interface IProps {
     id: string
 }
 const DeleteModal = ({ closeModal, name, id }: IProps) => {
-    const {p,setPage} = useContext(MainContext);
     const queryClient = useQueryClient()
     const mutation = useMutation({
         mutationFn: deleteProduct,
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['products'] })
+            queryClient.invalidateQueries({ queryKey: ['products'] });
+            toast.success('حذف با موفقیت انجان شد.', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                });
         },
     })
 
     const hendleDeleteProduct = () => {
-        setPage(id)
         mutation.mutate(id);
     }
 
