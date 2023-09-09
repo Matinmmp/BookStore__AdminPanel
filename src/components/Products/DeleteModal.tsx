@@ -2,10 +2,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteProduct } from '../../services/api/product';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
-import { useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { useState, useContext } from 'react';
-import { MainContext } from '../../context/Store';
 
 interface IProps {
     closeModal: () => void
@@ -13,13 +10,11 @@ interface IProps {
     id: string
 }
 const DeleteModal = ({ closeModal, name, id }: IProps) => {
-    const {setProductDeleted} = useContext(MainContext);
     const queryClient = useQueryClient();
     const mutation = useMutation({
         mutationFn: deleteProduct,
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['products'] });
-            setProductDeleted(true);
             toast.success('حذف با موفقیت انجان شد.', {
                 position: "top-right",
                 autoClose: 3000,

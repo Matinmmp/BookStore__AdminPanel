@@ -1,16 +1,15 @@
-import { useForm } from 'react-hook-form';
-import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
-import { getAllCategories } from '../../services/api/category';
-import { ChangeEvent, useState, useRef } from 'react';
-import { SubCategory } from '../../models/Types';
+import { postProduct } from '../../services/api/product';
 import { getAllSubCategories } from '../../services/api/subCategories';
-import { Editor } from '@tinymce/tinymce-react';
+import { getAllCategories } from '../../services/api/category';
+import { AiOutlineCloseCircle } from 'react-icons/ai';
+import { ChangeEvent, useState, useRef } from 'react';
 import { BsPlusCircleDotted } from 'react-icons/bs';
 import { BsFillImageFill } from 'react-icons/bs';
+import { SubCategory } from '../../models/Types';
+import { useForm } from 'react-hook-form';
 import { BiMinus } from 'react-icons/bi';
-import { postProduct, updateProduct } from '../../services/api/product';
-import { useSearchParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 interface IProps {
     closeModal: () => void
@@ -29,8 +28,6 @@ type Inputs = {
 }
 
 const AddModal = ({ closeModal }: IProps) => {
-    let [searchParams, setSearchParams] = useSearchParams();
-    const [page, setPage] = useState(searchParams.get('page'));
     const { register, setError, formState: { errors }, getValues, clearErrors } = useForm<Inputs>();
     const [subCategories, setSubCategories] = useState<SubCategory[]>([]);
     const [thumbnailURL, setThumbnailURL] = useState<any>();
@@ -95,7 +92,12 @@ const AddModal = ({ closeModal }: IProps) => {
         mutationFn: postProduct,
         onSuccess: () => {
             closeModal();
-
+            toast.success('محصول با موفقیت اضافه شد.', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+            });
             queryClient.invalidateQueries({ queryKey: ['products',page] })
         },
     })

@@ -28,9 +28,6 @@ interface IContextProps {
     deleteFromPriceProductList:(item: Price)=> void
 
     clearQuantitesAndPrices: () => void,
-
-    productDeleted:boolean
-    setProductDeleted:(productDeleted:boolean)=> void
 }
 
 
@@ -45,7 +42,6 @@ const MainContext = createContext({} as IContextProps);
 const MainProvider = (props: Props) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [user, setUser] = useState<User>();
-    const [productDeleted, setProductDeleted] = useState(false);
 
     const [quantitiesProdutList, setQuantitiesProdutList] = useState<Quantity[]>([])
     const [pricesProdutList, setPricesProdutList] = useState<Price[]>([])
@@ -80,7 +76,7 @@ const MainProvider = (props: Props) => {
 
     return <MainContext.Provider value={{
         isMenuOpen, handleIsMenuOpen, user, getUser, quantitiesProdutList, pricesProdutList,
-        addToQuantitiesProdutList, addToPricesProdutList,clearQuantitesAndPrices,productDeleted,setProductDeleted,
+        addToQuantitiesProdutList, addToPricesProdutList,clearQuantitesAndPrices,
         deleteFromQuantityProductList,deleteFromPriceProductList
     }} >{...props.children}</MainContext.Provider>
 }
