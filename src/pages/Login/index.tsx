@@ -5,6 +5,8 @@ import { useState, useContext } from 'react';
 import publicAxios from "../../services/instance/publiceAxios";
 import Cookies from 'js-cookie';
 import { MainContext } from "../../context/Store";
+import { toast } from "react-toastify";
+
 type Inputs = {
     username: string,
     password: string,
@@ -25,6 +27,16 @@ const index = () => {
             Cookies.set('accessToken', res.data.token.accessToken);
             Cookies.set('refreshToken', res.data.token.refreshToken);
             getUser(res.data.data.user);
+            toast.success(`${res.data.data.user.firstname} به پنل مدیریت خوش آمدید`, {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                });
             navigate('/admin/orders?page=1&deliveryStatus=true');
         })
         reset();
