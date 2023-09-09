@@ -13,7 +13,7 @@ const index = () => {
     let [searchParams, setSearchParams] = useSearchParams();
     const [page, setPage] = useState(searchParams.get('page'));
     const [isOpenAddProductModal, setIsOpenAddProductModal] = useState(false);
-    let { data, isLoading } = useQuery({ queryKey: [`$orders`, page], queryFn: () => getAllProducts(Number(page)) });
+    let { data, isLoading } = useQuery({ queryKey: ['products', page], queryFn: () => getAllProducts(Number(page)) });
 
     const modalElement = document.getElementById('modal');
 

@@ -11,6 +11,7 @@ import { BsFillImageFill } from 'react-icons/bs';
 import { BiMinus } from 'react-icons/bi';
 import { postProduct, updateProduct } from '../../services/api/product';
 import { handleMedias } from '../../utils/image';
+import { useSearchParams } from 'react-router-dom';
 
 interface IProps {
     product: Product
@@ -32,7 +33,8 @@ type Inputs = {
 
 
 const EditModal = ({ closeModal, product }: IProps) => {
-    // console.log(product);
+    let [searchParams, setSearchParams] = useSearchParams();
+    const [page, setPage] = useState(searchParams.get('page'));
 
     const { register, setError, formState: { errors }, getValues, clearErrors, setValue } = useForm<Inputs>();
     const [subCategories, setSubCategories] = useState<SubCategory[]>([]);
@@ -53,6 +55,7 @@ const EditModal = ({ closeModal, product }: IProps) => {
         getAllSubCategories(product.category).then(res => setSubCategories(res));
         setValue('price', product.price);
         setValue('quantity', product.quantity);
+        editorRef.current.value = product.description
 
         const makeURLToFile = async () => {
             await handleMedias(product.images, 'images').then((res) => setImagesURL(res));
@@ -115,15 +118,12 @@ const EditModal = ({ closeModal, product }: IProps) => {
         if (!isValid) return isValid;
         return isValid;
     }
-    function s(){
-
-    }
     const queryClient = useQueryClient()
     const mutation = useMutation({
         mutationFn: updateProduct,
         onSuccess: () => {
             closeModal();
-            queryClient.invalidateQueries({ queryKey: ['products'] })
+            queryClient.invalidateQueries({ queryKey: ['products',page] })
         },
     })
 
@@ -136,7 +136,7 @@ const EditModal = ({ closeModal, product }: IProps) => {
         formData.append('category', getValues('category'));
         if (getValues('subcategory') === "0") formData.append('subcategory', subCategories[0]._id);
         else formData.append('subcategory', getValues('subcategory'));
-        formData.append('description', editorRef.current.getContent());
+        formData.append('description', editorRef.current.value);
         formData.append('price', `${getValues('price')}`);
         formData.append('quantity', `${getValues('quantity')}`);
         formData.append('thumbnail', thumbnailURL);
@@ -240,7 +240,7 @@ const EditModal = ({ closeModal, product }: IProps) => {
                         </div>
 
                         <div className='relative pb-8'>
-                            <Editor onInit={(evt, editor) => editorRef.current = editor}
+                            {/* <Editor onInit={(evt, editor) => editorRef.current = editor}
                                 initialValue={product.description} apiKey='111'
                                 init={{
                                     height: 500, menubar: false,
@@ -254,8 +254,10 @@ const EditModal = ({ closeModal, product }: IProps) => {
                                         'alignright alignjustify | bullist numlist outdent indent | ' +
                                         'removeformat | help',
                                     content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
-                                }}
-                            />
+                                }}/> */}
+                                <textarea 
+                                 placeholder='توضیحات' rows={10} className='textarea textarea-accent w-full' ref={editorRef}/>
+
                             {errors.description && <label className="label text-error absolute bottom-0 ">
                                 <span className="label-text-alt text-error ">{errors.description.message}</span></label>}
                         </div>

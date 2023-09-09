@@ -25,7 +25,7 @@ const index = () => {
             Cookies.set('accessToken', res.data.token.accessToken);
             Cookies.set('refreshToken', res.data.token.refreshToken);
             getUser(res.data.data.user);
-            navigate('/admin/orders');
+            navigate('/admin/orders?page=1&deliveryStatus=true');
         })
         reset();
     }
