@@ -1,11 +1,11 @@
+import publicAxios from "../../services/instance/publiceAxios";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { FaEyeSlash, FaEye } from 'react-icons/fa6';
+import { MainContext } from "../../context/Store";
 import { useNavigate } from 'react-router-dom';
 import { useState, useContext } from 'react';
-import publicAxios from "../../services/instance/publiceAxios";
-import Cookies from 'js-cookie';
-import { MainContext } from "../../context/Store";
 import { toast } from "react-toastify";
+import Cookies from 'js-cookie';
 
 type Inputs = {
     username: string,

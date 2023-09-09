@@ -29,8 +29,8 @@ interface IContextProps {
 
     clearQuantitesAndPrices: () => void,
 
-    p:String
-    setPage:(number:string)=> void
+    productDeleted:boolean
+    setProductDeleted:(productDeleted:boolean)=> void
 }
 
 
@@ -45,7 +45,7 @@ const MainContext = createContext({} as IContextProps);
 const MainProvider = (props: Props) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [user, setUser] = useState<User>();
-    const [p, setP] = useState('');
+    const [productDeleted, setProductDeleted] = useState(false);
 
     const [quantitiesProdutList, setQuantitiesProdutList] = useState<Quantity[]>([])
     const [pricesProdutList, setPricesProdutList] = useState<Price[]>([])
@@ -77,13 +77,10 @@ const MainProvider = (props: Props) => {
 
     const getUser = (user: User) => setUser(user);
     const handleIsMenuOpen = () => setIsMenuOpen(!isMenuOpen);
-    const setPage=(number:string)=>{
-        setP(number)
-    }
 
     return <MainContext.Provider value={{
         isMenuOpen, handleIsMenuOpen, user, getUser, quantitiesProdutList, pricesProdutList,
-        addToQuantitiesProdutList, addToPricesProdutList,clearQuantitesAndPrices,p,setPage,
+        addToQuantitiesProdutList, addToPricesProdutList,clearQuantitesAndPrices,productDeleted,setProductDeleted,
         deleteFromQuantityProductList,deleteFromPriceProductList
     }} >{...props.children}</MainContext.Provider>
 }
