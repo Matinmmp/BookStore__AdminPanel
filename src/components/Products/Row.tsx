@@ -9,6 +9,7 @@ import DeleteModal from "./DeleteModal";
 import EditModal from "./EditModal";
 import { useState } from "react";
 
+
 interface IProps {
     product: Product;
 }
