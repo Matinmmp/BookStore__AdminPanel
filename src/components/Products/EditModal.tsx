@@ -134,16 +134,16 @@ const EditModal = ({ closeModal, product }: IProps) => {
             setError("aboutWriter", { message: " درباره ی نویسنده را وارد کنید" });
             isValid = false;
         }
-        if (getValues('aboutWriter').split(' ').length < 50 || getValues('aboutWriter').split(' ').length > 80) {
-            setError("aboutWriter", { message: "باید بیشتر از 50 کلمه و کمتر از 80 کلمه باشد." });
+        if (getValues('aboutWriter').split(' ').length < 20 || getValues('aboutWriter').split(' ').length > 80) {
+            setError("aboutWriter", { message: "باید بیشتر از 20 کلمه و کمتر از 80 کلمه باشد." });
             isValid = false;
         }
         if (!getValues('shortSummery')) {
             setError("shortSummery", { message: " خلاهصه ی کوتاه را وارد کنید" });
             isValid = false;
         }
-        if (getValues('shortSummery').split(' ').length < 50 || getValues('shortSummery').split(' ').length > 80) {
-            setError("shortSummery", { message: "باید بیشتر از 50 کلمه و کمتر از 80 کلمه باشد." });
+        if (getValues('shortSummery').split(' ').length < 20 || getValues('shortSummery').split(' ').length > 80) {
+            setError("shortSummery", { message: "باید بیشتر از 20 کلمه و کمتر از 80 کلمه باشد." });
             isValid = false;
         }
         if (!editorRef.current.getContent()) {
@@ -257,7 +257,7 @@ const EditModal = ({ closeModal, product }: IProps) => {
 
             <div className='flex justify-between py-2'>
                 <AiOutlineCloseCircle className="text-error text-3xl cursor-pointer" onClick={() => { closeModal() }} />
-                <p className='text-2xl text-accent'>افزودن محصول</p>
+                <p className='text-2xl text-accent'>ویرایش محصول</p>
                 <div></div>
             </div>
 
