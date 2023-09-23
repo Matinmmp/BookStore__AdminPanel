@@ -1,0 +1,43 @@
+@font-face {
+    font-family: "Vazir";
+    src: url("../public/font/Vazir-Medium.ttf") format("truetype");
+}
+
+body,
+* {
+    direction: rtl;
+}
+
+body {
+    position: relative;
+    font-family: 'Vazir';
+}
+
+
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #0084ff #454545;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 9px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #454545;
+}
+
+*::-webkit-scrollbar-thumb {
+    right: 0;
+    background-color: #0084ff;
+    border-radius: 16px;
+    border: 0px solid #ffffff;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    display: none;
+}
