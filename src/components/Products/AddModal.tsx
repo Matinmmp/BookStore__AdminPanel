@@ -26,7 +26,6 @@ type Inputs = {
     quantity: number,
     brand: string,
     description: string,
-
     writer: string,
     aboutWriter: string,
     shortSummery: string,
@@ -37,7 +36,6 @@ type Inputs = {
     bookLag: string,
     minAge: number,
     maxAge: number,
-
     thumbnail: string,
     images: string
 }
@@ -67,7 +65,7 @@ const AddModal = ({ closeModal }: IProps) => {
             writer: getValues('writer'),
             aboutWriter: getValues('aboutWriter'),
             shortSummery: getValues('shortSummery'),
-            longSummery: getValues('longSummery'),
+            longSummery: editorRef.current.getContent(),
             pages: getValues('pages'),
             releaseData: getValues('releaseData'),
             translator: getValues('translator'),
@@ -114,12 +112,8 @@ const AddModal = ({ closeModal }: IProps) => {
             setError("shortSummery", { message: "باید بیشتر از 50 کلمه و کمتر از 80 کلمه باشد." });
             isValid = false;
         }
-        if (!getValues('longSummery')) {
+        if (!editorRef.current.getContent()) {
             setError("longSummery", { message: " خلاهصه ی بلند را وارد کنید" });
-            isValid = false;
-        }
-        if (getValues('longSummery').split(' ').length < 200) {
-            setError("longSummery", { message: "باید بیشتر از 200  کلمه باشد." });
             isValid = false;
         }
         if (!getValues('pages')) {
@@ -385,18 +379,9 @@ const AddModal = ({ closeModal }: IProps) => {
                                         'insertdatetime media table paste code help wordcount'
                                     ],
                                     toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-                                    // toolbar: 'undo redo | formatselect | ' +
-                                    //     'bold italic backcolor | alignleft aligncenter ' +
-                                    //     'alignright alignjustify | bullist numlist outdent indent | ' +
-                                    //     'removeformat | help',
                                     content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
                                 }}
                             />
-
-                            {/* <textarea   {...register('longSummery')}
-                                placeholder='خلاصه ی بلند' rows={10} className='textarea textarea-accent w-full' />
-                            {errors.longSummery && <label className="label text-error absolute bottom-0 ">
-                                <span className="label-text-alt text-error ">{errors.longSummery.message}</span></label>} */}
                         </div>
 
                     </form>
