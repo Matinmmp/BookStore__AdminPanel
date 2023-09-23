@@ -13,9 +13,11 @@ const index = () => {
     let [searchParams, setSearchParams] = useSearchParams();
     const [page, setPage] = useState(searchParams.get('page'));
     const { quantitiesProdutList, pricesProdutList, clearQuantitesAndPrices } = useContext(MainContext);
-    let { data, isLoading } = useQuery({ queryKey: ['products', page], queryFn: () => getAllProducts(Number(page)) });
+    let { data, isLoading } = useQuery({ queryKey: ['products', page], queryFn: () => getAllProducts(Number(page === '0' ? '1':page)) });
 
     const handleChangePage = (number: number) => {
+        if(number === 0)
+        number =1
         searchParams.set('page', String(number));
         setSearchParams(searchParams);
         setPage(String(number))

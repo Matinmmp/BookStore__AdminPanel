@@ -10,9 +10,11 @@ const index = () => {
     const [page, setPage] = useState(searchParams.get('page'));
     const [delveryStatus, setDeliveryStatus] = useState(searchParams.get('deliveryStatus'));
     const [deliver, setDeliver] = useState('true');
-    let { data, isLoading } = useQuery({ queryKey: ['orders', page,delveryStatus], queryFn: () => getAllOrders(Number(page),String(delveryStatus)) });
+    let { data, isLoading } = useQuery({ queryKey: ['orders', page,delveryStatus], queryFn: () => getAllOrders(Number(page === '0'?'1':page),String(delveryStatus)) });
 
     const handleChangePage = (number: number) => {
+        if(number === 0)
+        number =1
         searchParams.set('page', String(number));
         setSearchParams(searchParams);
         setPage(String(number))
@@ -26,11 +28,15 @@ const index = () => {
         setPage('1')
     }
     useEffect(() => {
-        if (!isLoading)
+        if (!isLoading && data){
             if (data?.orders.length === 0)
-                handleChangePage(data?.totalPages)
+            handleChangePage(data?.totalPages)
+        }
+            
 
     }, [data?.orders.length])
+
+
     return (
         <div className="felx flex-row gap-8 px-8 ">
             <div className="flex flex-col   lg:flex-row gap-4 justify-between py-8">
@@ -42,10 +48,10 @@ const index = () => {
                 </div>
             </div>
             <div className="flex flex-col ">
-                {!isLoading && <Table orders={data?.orders} />}
-
+                {!isLoading && !data && <h3>اطلاعاتی برای نمایش وجود ندارد</h3>}
+                {!isLoading && data && <Table orders={data?.orders} />}
                 <div className="join flex flex-row-reverse justify-center mt-4">
-                {!isLoading && data?.totalPages && Array.from({ length: data.totalPages }, (v, k) => k + 1).map(number =>
+                {!isLoading && data && data?.totalPages && Array.from({ length: data.totalPages }, (v, k) => k + 1).map(number =>
                         <button onClick={() => handleChangePage(number)} key={number} className={`join-item btn btn-accent btn-md
                          ${Number(page) === number ? 'btn-active' : ''}`}>{number}</button>
                     )}
