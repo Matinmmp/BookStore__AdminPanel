@@ -65,7 +65,7 @@ const DetailModal = ({ closeModal, order }: IProps) => {
                     </div>
                     <div className='flex items-center gap-2'>
                         <span> زمان تحویل : </span>
-                        <span>{deliveryDate.toLocaleDateString("")}</span>
+                        <span>{deliveryDate.toLocaleDateString()}</span>
                     </div>
                     <div className='flex items-center gap-2'>
                         <span> زمان سفارش : </span>

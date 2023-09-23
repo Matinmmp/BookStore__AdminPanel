@@ -12,6 +12,8 @@ const Row = ({ order }: IProps) => {
     const openAddProductModal = () => setIsOpenAddProductModal(true);
     const closeAddProductModal = () => setIsOpenAddProductModal(false);
     const createData = new Date(order.createdAt)
+    console.log(createData);
+    
     const modalElement = document.getElementById('modal');
     return (
         <tr className= " flex items-center hover:bg-accent-focus w-full hover:text-white transition-all">
