@@ -579,3 +579,11 @@
 راهنما
 
 پروژه ی فروشگاه کتاب شامل 4 پروژه می باشد یک پروژه ی پنل ادمین که همین پروژه هست و یک پروژه که خوده فروشگاه هست که داخل همین اکانت گیت هاب موجوده در این پروژه دو فایل زیپ قرار دارد یکی با نام server که سرور پروژه هست و برای اینکه سایت اصلی و پنل ادمین کار کنند نیازه اول راه اندازی بشود.و یک پروژه ی دیگر که زیپ هست با نام payment که فقط برای لحظه ی پرداخت استفاده میشود.
+
+قسمت هایی از پنل ادمنی
+![Capture6](https://github.com/Matinmmp/BookStore__AdminPanel/assets/127874061/efa68eee-55db-41f4-b7ab-7476a181988f)
+![Capture5](https://github.com/Matinmmp/BookStore__AdminPanel/assets/127874061/616143bc-3a2b-4525-a0c0-a4fab4cfae99)
+![Capture4](https://github.com/Matinmmp/BookStore__AdminPanel/assets/127874061/1690b76f-3c9a-480f-9de1-0bdd82d6bc8e)
+![Capture3](https://github.com/Matinmmp/BookStore__AdminPanel/assets/127874061/fb0f3c5a-b65b-456d-b7d5-9b0b9bf0a14d)
+![Capture2](https://github.com/Matinmmp/BookStore__AdminPanel/assets/127874061/14f1bc7d-21e5-4337-bf49-3e971a0f637a)
+![Capture1](https://github.com/Matinmmp/BookStore__AdminPanel/assets/127874061/f0e127d8-7b1f-4dce-9b19-79d25465342a)
