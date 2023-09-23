@@ -15,7 +15,7 @@ const index = () => {
     if (!Number.isNaN(Number(searchParams.get('page')))) pageNumber = String(searchParams.get('page'));
     const [page, setPage] = useState(pageNumber);
     const [isOpenAddProductModal, setIsOpenAddProductModal] = useState(false);
-    let { data, isLoading } = useQuery({ queryKey: ['products', page], queryFn: () => getAllProducts(Number(page)) });
+    let { data, isLoading } = useQuery({ queryKey: ['products', page], queryFn: () => getAllProducts(Number((page))) });
 
     useEffect(() => {
         if (!isLoading)
@@ -27,6 +27,8 @@ const index = () => {
     const modalElement = document.getElementById('modal');
 
     const handleChangePage = (number: number) => {
+        if(number === 0)
+            number =1
         searchParams.set('page', String(number));
         setSearchParams(searchParams);
         setPage(String(number))
